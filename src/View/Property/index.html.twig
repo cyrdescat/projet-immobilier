@@ -1,14 +1,13 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Bahamas Immobilier Defiscalisation</h1>
-    <p>Slider<p>
+    <h1>Properties</h1>
     <ul>
         {% for item in items %}
-            <li>{{ item.id }} {{ item.title }} {{ item.surface }} m2, {{ item.room }} chambres</li>
+            <li><a href="/property/show/{{ item.id }}">{{ item.id }}. {{ item.title }}</a></li>
         {% else %}
             <li>Nothing to display</li>
         {% endfor %}
     </ul>
-    <h2>Coup de coeur</h2>
+    <a href="/property/add">Ajouter</a>
 {% endblock %}

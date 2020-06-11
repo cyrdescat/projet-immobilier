@@ -8,8 +8,15 @@
 
 namespace App\Controller;
 
+use App\Model\PropertyManager;
+
 class HomeController extends AbstractController
 {
+
+    /**
+     * @var integer
+     */
+    private $limitSlider = 3;
 
     /**
      * Display home page
@@ -21,6 +28,13 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        return $this->twig->render('Home/index.html.twig');
+        //Slider
+        $propertyManager = new PropertyManager();
+        $items = $propertyManager->selectSlider($this->limitSlider);
+
+        //Coup de coeur
+
+
+        return $this->twig->render('Home/index.html.twig', ['items' => $items]);
     }
 }

@@ -1,0 +1,9 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Property {{ item.title }}</h1>
+    <p>{{ item.id }}. {{ item.title }}</p>
+    <a href="/property/edit/{{ item.id }}">Edit</a>
+    <a href="/property/delete/{{item.id}}">Supprimer</a>
+    <a href="/property/index">Back</a>
+{% endblock %}
