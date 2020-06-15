@@ -45,22 +45,22 @@ class PropertyController extends AbstractController
     {
 
         if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            if (isset($_POST['surface'])) {
+            if (!empty($_POST['surface'])) {
                 $surface = $_POST['surface'];
             } else {
                 $surface =  0;
             }
-            if (isset($_POST['room'])) {
+            if (!empty($_POST['room'])) {
                 $room = $_POST['room'];
             } else {
                 $room =  0;
             }
-            if (isset($_POST['city'])) {
+            if (!empty($_POST['city'])) {
                 $city = strtolower($_POST['city']);
             } else {
                 $city =  "";
             }
-            if (isset($_POST['price'])) {
+            if (!empty($_POST['price'])) {
                 $price = $_POST['price'];
             } else {
                 $price =  0;
@@ -68,9 +68,9 @@ class PropertyController extends AbstractController
             $propertyManager = new PropertyManager();
             $properties = $propertyManager->searchProperty($surface, $room, $city, $price);
 
-            return $this->twig->render('');
+            return $this->twig->render('Property/index.html.twig', ['items' => $properties]);
         } else {
-            header("Location:index.php");
+            header("Location:index");
         }
     }
 

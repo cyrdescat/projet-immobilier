@@ -54,7 +54,7 @@ class PropertyManager extends AbstractManager
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND price >= :price 
-                                                    AND city.name LIKE LOWER('%:city%')");
+                                                    AND city.name LIKE LOWER(:city)");
 
         $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
         $statement->bindValue('room', $room, \PDO::PARAM_INT);

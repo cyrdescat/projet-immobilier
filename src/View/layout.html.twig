@@ -12,8 +12,26 @@
     <link rel="icon" href="/assets/images/favicon.png">
 </head>
 <header>
-    <form method="post" action="">
-    {# Formulaire de recherche dans le header #}
+    <form method="post" action="showSearchedProperties">
+        <div>
+            <label  for="price">Prix max :</label>
+            <input  type="number"  id="price"  name="price" step="10000">
+        </div>
+        <div>
+            <label  for="surface">Surface min :</label>
+            <input  type="number"  id="surface"  name="surface">
+        </div>
+        <div>
+            <label  for="room">Pièces min :</label>
+            <input  type="number"  id="room"  name="room">
+        </div>
+        <div>
+            <label  for="city">Ville :</label>
+            <input  type="text"  id="city"  name="city">
+        </div>
+        <div>
+            <button  type="submit" id="submit" name="submit">Rechercher</button>
+        </div>
     </form>
 </header>
 <body>
