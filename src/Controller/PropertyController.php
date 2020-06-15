@@ -35,6 +35,44 @@ class PropertyController extends AbstractController
         return $this->twig->render('Property/index.html.twig', ['items' => $items]);
     }
 
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function showSearchedProperties()
+    {
+
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            if (isset($_POST['surface'])) {
+                $surface = $_POST['surface'];
+            } else {
+                $surface =  0;
+            }
+            if (isset($_POST['room'])) {
+                $room = $_POST['room'];
+            } else {
+                $room =  0;
+            }
+            if (isset($_POST['city'])) {
+                $city = strtolower($_POST['city']);
+            } else {
+                $city =  "";
+            }
+            if (isset($_POST['price'])) {
+                $price = $_POST['price'];
+            } else {
+                $price =  0;
+            }
+            $propertyManager = new PropertyManager();
+            $properties = $propertyManager->searchProperty($surface, $room, $city, $price);
+
+            return $this->twig->render('');
+        } else {
+            header("Location:index.php");
+        }
+    }
 
     /**
      * Display item informations specified by $id

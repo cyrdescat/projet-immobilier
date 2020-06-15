@@ -1,11 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: sylvain
- * Date: 07/03/18
- * Time: 18:20
- * PHP version 7
- */
 
 namespace App\Model;
 
@@ -47,6 +40,30 @@ class PropertyManager extends AbstractManager
         return $statement->fetch();
     }
 
+    /**
+     * @param int $surface
+     * @param int $room
+     * @param string $city
+     * @param int $price
+     * @return array
+     */
+    public function searchProperty(int $surface, int $room, string $city, int $price) : array
+    {
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                    JOIN city ON city.id = property.id_city 
+                                                    WHERE surface >= :surface 
+                                                    AND room >= :room 
+                                                    AND price >= :price 
+                                                    AND city.name LIKE LOWER('%:city%')");
+
+        $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+        $statement->bindValue('room', $room, \PDO::PARAM_INT);
+        $statement->bindValue('price', $price, \PDO::PARAM_INT);
+        $statement->bindValue('city', $city, \PDO::PARAM_STR);
+        $statement->execute();
+
+        return $statement->fetchAll();
+    }
 
     /**
      * @param array $item
