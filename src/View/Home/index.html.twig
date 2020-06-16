@@ -1,14 +1,38 @@
 {% extends 'layout.html.twig' %}
 
-{% block content %}
+{% block content %}   
     <h1>Bahamas Immobilier Defiscalisation</h1>
     <p>Slider<p>
-    <ul>
+    <div class="flex-container">
         {% for item in items %}
-            <li>{{ item.id }} {{ item.title }} {{ item.surface }} m2, {{ item.room }} chambres</li>
+            <div><img class="picture-slider" src="{{ item.picture }}" title="{{ item.title }}" alt="{{ item.alt }}" height="140px" width="225px">
+            {{ item.id }} {{ item.title }} {{ item.surface }} m2, {{ item.room }} chambres</div>
         {% else %}
-            <li>Nothing to display</li>
+            <div>Nothing to display</div>
         {% endfor %}
-    </ul>
+    </div>
     <h2>Coup de coeur</h2>
+    <div class="flex-container" style="width: 100%">
+        <div>
+            <div><img class="picture-slider" src="/assets/images/villa-1.jpeg" alt="Grapefruit slice atop a pile of other slices" height="140px" width="225px">
+            <span>{{ favorite.id }} {{ favorite.title }} {{ favorite.surface }} m2, {{ favorite.room }}</span></div>
+        </div>
+    </div>
+    <h2>Nos 10 derniers biens</h2>
+    <div class="flex-container">
+        {% for newProperty in newProperties %}
+            <div><img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" height="140px" width="225px">
+            {{ newProperty.id }} {{ newProperty.title }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
+        {% else %}
+            <div>Nothing to display</div>
+        {% endfor %}
+        {% for newProperty in newProperties %}
+            <div>
+                <img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" height="140px" width="225px">
+                {{ newProperty.id }} {{ newProperty.title }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
+        {% else %}
+            <div>Nothing to display</div>
+        {% endfor %}
+    </div>
+    <h2>Voir plus de biens - lian</h2>
 {% endblock %}

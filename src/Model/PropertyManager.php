@@ -34,19 +34,37 @@ class PropertyManager extends AbstractManager
      */
     public function selectSlider(int $limit): array
     {
-        return $this->pdo->query('SELECT * FROM ' . $this->table . ' LIMIT ' . $limit)->fetchall();
+        $query = "SELECT pr.*, p.* "
+               . "FROM " . $this->table . " as pr "
+               . "JOIN picture p ON pr.id = p.id_property "
+               . "WHERE p.front = 1 "
+               . "LIMIT " . $limit;
+        $statement = $this->pdo->query($query);
+        $properties = $statement->fetchAll();
+        //$this->pdo->query('SELECT * FROM ' . $this->table . ' LIMIT ' . $limit);
+
+        return $properties;
     }
 
-    public function selectOneById(int $id)
+    /**
+     * Get last new 10 propertys into database.
+     *
+     * @return array
+     */
+    public function selectNewProperty(): array
     {
-        // prepared request
-        $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id=:id");
-        $statement->bindValue('id', $id, \PDO::PARAM_INT);
-        $statement->execute();
-
-        return $statement->fetch();
+        $query = "SELECT pr.*, p.* "
+               . "FROM " . $this->table . " as pr "
+               . "JOIN picture p ON pr.id = p.id_property "
+               . "WHERE p.front = 1 "
+               . "ORDER BY pr.created DESC "
+               . "LIMIT 10 ";
+        $statement = $this->pdo->query($query);
+        $properties = $statement->fetchAll();
+        //return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY created DESC LIMIT 10')->fetchall();
+        
+        return $properties;
     }
-
 
     /**
      * @param array $item

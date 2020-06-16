@@ -1,0 +1,24 @@
+background-color: #008c8c;
+background-image: url("https://www.transparenttextures.com/patterns/45-degree-fabric-light.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+
+document.body.style.backgroundImage = "url('https://www.transparenttextures.com/patterns/45-degree-fabric-light.png')";
+
+document.getElementById("demo").innerHTML = "Mt JavaScript";	
+
+
+$statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                    JOIN city ON city.id = property.id_city 
+                                                    WHERE surface >= :surface 
+                                                    AND room >= :room 
+                                                    AND price >= :price 
+                                                    AND city.name LIKE :city");
+                                                    
+                                                    $city = "LOWER('%:city%')";
+
+        $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+        $statement->bindValue('room', $room, \PDO::PARAM_INT);
+        $statement->bindValue('price', $price, \PDO::PARAM_INT);
+        $statement->bindValue('city', $city, \PDO::PARAM_STR);
+        $statement->execute();
+ 
