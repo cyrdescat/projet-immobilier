@@ -1,0 +1,13 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    <h1>Contacts</h1>
+    <ul>
+        {% for contact in contacts %}
+            <li><a href="/Contact/show/{{ contact.lastname }}">{{ contact.lastname }}. {{ contact.firstName }}</a></li>
+        {% else %}
+            <li>Nothing to display</li>
+        {% endfor %}
+    </ul>
+    <a href="/Contact/add">Ajouter</a>
+{% endblock %}
