@@ -69,7 +69,7 @@ class PropertyManager extends AbstractManager
      */
     public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = false) : string
     {
-        if ($isNew) {
+        if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
         } else {
             $new = "";
@@ -115,10 +115,10 @@ class PropertyManager extends AbstractManager
      * @param int $page
      * @param int $nbElement
      * @param int $filterId
-     * @param boolean|bool $isNew
+     * @param int|int $isNew
      * @return array
      */
-    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement, int $filterId, $isNew = false) : array
+    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement, int $filterId, int $isNew = 0) : array
     {
         if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
             $order = "ASC";
@@ -127,17 +127,15 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 0 || $filterId == 1) {
             $column = "created";
-        }
-        if ($filterId == 2 || $filterId == 3) {
+        } else if ($filterId == 2 || $filterId == 3) {
             $column = "surface";
-        }
-        if ($filterId == 4 || $filterId == 5) {
+        } else if ($filterId == 4 || $filterId == 5) {
             $column = "price";
         } else {
             $column = "created";
         }
 
-        if ($isNew) {
+        if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
         } else {
             $new = "";
@@ -182,6 +180,76 @@ class PropertyManager extends AbstractManager
             $statement->execute();
             return $statement->fetchAll();
         }
+    }
+
+    /**
+     * @param int $page
+     * @param int $nbElement
+     * @param int $filterId
+     * @return string
+     */
+    public function countUltraLuxe(int $page, int $nbElement, int $filterId) : string
+    {
+        if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
+            $order = "ASC";
+        } else {
+            $order = "DESC";
+        }
+        if ($filterId == 0 || $filterId == 1) {
+            $column = "created";
+        } else if ($filterId == 2 || $filterId == 3) {
+            $column = "surface";
+        } else if ($filterId == 4 || $filterId == 5) {
+            $column = "price";
+        } else {
+            $column = "created";
+        }
+
+        $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
+                                                WHERE price >= 10000000 
+                                                ORDER BY $column $order 
+                                                LIMIT :offset, :limit");
+
+        $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+        $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+        $statement->execute();
+        return $statement->fetchColumn();
+    }
+
+    /**
+     * @param int $page
+     * @param int $nbElement
+     * @param int $filterId
+     * @return array
+     */
+    public function getUltraLuxe(int $page, int $nbElement, int $filterId) : array
+    {
+        if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
+            $order = "ASC";
+        } else {
+            $order = "DESC";
+        }
+        if ($filterId == 0 || $filterId == 1) {
+            $column = "created";
+        } else if ($filterId == 2 || $filterId == 3) {
+            $column = "surface";
+        } else if ($filterId == 4 || $filterId == 5) {
+            $column = "price";
+        } else {
+            $column = "created";
+        }
+
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                WHERE price >= 10000000 
+                                                ORDER BY $column $order 
+                                                LIMIT :offset, :limit");
+
+        $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+        $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+        $statement->execute();
+        return $statement->fetchAll();
     }
 
 
