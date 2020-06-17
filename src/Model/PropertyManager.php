@@ -45,24 +45,86 @@ class PropertyManager extends AbstractManager
      * @param int $room
      * @param string $city
      * @param int $price
-     * @return array
+     * @return string
      */
-    public function searchProperty(int $surface, int $room, string $city, int $price) : array
+    public function countSearchedProperties(int $surface, int $room, string $city, int $price) : string
     {
-        $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+        if ($price !== 0) {
+            $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
                                                     JOIN city ON city.id = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
-                                                    AND price >= :price 
+                                                    AND price <= :price 
                                                     AND city.name LIKE LOWER(:city)");
 
-        $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
-        $statement->bindValue('room', $room, \PDO::PARAM_INT);
-        $statement->bindValue('price', $price, \PDO::PARAM_INT);
-        $statement->bindValue('city', $city, \PDO::PARAM_STR);
-        $statement->execute();
+            $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+            $statement->bindValue('room', $room, \PDO::PARAM_INT);
+            $statement->bindValue('price', $price, \PDO::PARAM_INT);
+            $statement->bindValue('city', "%$city%", \PDO::PARAM_STR);
 
-        return $statement->fetchAll();
+            $statement->execute();
+            return $statement->fetchColumn();
+        } else {
+            $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
+                                                    JOIN city ON city.id = property.id_city 
+                                                    WHERE surface >= :surface 
+                                                    AND room >= :room 
+                                                    AND city.name LIKE LOWER(:city)");
+
+            $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+            $statement->bindValue('room', $room, \PDO::PARAM_INT);
+            $statement->bindValue('city', "%$city%", \PDO::PARAM_STR);
+            $statement->execute();
+            return $statement->fetchColumn();
+        }
+    }
+
+    /**
+     * @param int $surface
+     * @param int $room
+     * @param string $city
+     * @param int $price
+     * @param int $page
+     * @param int $nbElement
+     * @return array
+     */
+    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement) : array
+    {
+        if ($price !== 0) {
+            $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                    JOIN city ON city.id = property.id_city 
+                                                    WHERE surface >= :surface 
+                                                    AND room >= :room 
+                                                    AND price <= :price 
+                                                    AND city.name LIKE LOWER(:city)
+                                                    LIMIT :offset, :limit");
+
+            $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+            $statement->bindValue('room', $room, \PDO::PARAM_INT);
+            $statement->bindValue('price', $price, \PDO::PARAM_INT);
+            $statement->bindValue('city', "%$city%", \PDO::PARAM_STR);
+            $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+            $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+            $statement->execute();
+            return $statement->fetchAll();
+        } else {
+            $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                    JOIN city ON city.id = property.id_city 
+                                                    WHERE surface >= :surface 
+                                                    AND room >= :room 
+                                                    AND city.name LIKE LOWER(:city)
+                                                    LIMIT :offset, :limit");
+
+            $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
+            $statement->bindValue('room', $room, \PDO::PARAM_INT);
+            $statement->bindValue('city', "%$city%", \PDO::PARAM_STR);
+            $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+            $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+            $statement->execute();
+            return $statement->fetchAll();
+        }
     }
 
     /**

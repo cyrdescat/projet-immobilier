@@ -17,7 +17,8 @@ use App\Model\PropertyManager;
  */
 class PropertyController extends AbstractController
 {
-
+    const PAGES_NUMBER = [10, 20, 50];
+    const NEARBY_PAGES_LIMIT = 3;
 
     /**
      * Display item listing
@@ -36,6 +37,40 @@ class PropertyController extends AbstractController
     }
 
     /**
+     *
+     */
+    public function searchProperties()
+    {
+        if ($_SERVER['REQUEST_METHOD'] === "POST") {
+            session_start();
+            if (!empty($_POST['surface'])) {
+                $_SESSION['surface'] = $_POST['surface'];
+            } else {
+                $_SESSION['surface'] = 0;
+            }
+            if (!empty($_POST['room'])) {
+                $_SESSION['room'] = $_POST['room'];
+            } else {
+                $_SESSION['room'] = 0;
+            }
+            if (!empty($_POST['city'])) {
+                $_SESSION['city'] = strtolower($_POST['city']);
+            } else {
+                $_SESSION['city'] = "";
+            }
+            if (!empty($_POST['price'])) {
+                $_SESSION['price'] = $_POST['price'];
+            } else {
+                $_SESSION['price'] = 0;
+            }
+
+            header("Location:/Property/showSearchedProperties?page=1&nbElements=10");
+        } else {
+            header("Location:index");
+        }
+    }
+
+    /**
      * @return string
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
@@ -43,32 +78,45 @@ class PropertyController extends AbstractController
      */
     public function showSearchedProperties()
     {
+        session_start();
+        if (isset($_SESSION['price'])) {
+            if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1) {
+                $page = $_GET['page'];
+            } else {
+                $page = 1;
+            }
+            if (isset($_GET['nbElements']) && is_numeric($_GET['nbElements']) && $_GET['nbElements'] >= 1) {
+                $nbElements = $_GET['nbElements'];
+            } else {
+                $nbElements = 10;
+            }
 
-        if ($_SERVER['REQUEST_METHOD'] === "POST") {
-            if (!empty($_POST['surface'])) {
-                $surface = $_POST['surface'];
-            } else {
-                $surface =  0;
-            }
-            if (!empty($_POST['room'])) {
-                $room = $_POST['room'];
-            } else {
-                $room =  0;
-            }
-            if (!empty($_POST['city'])) {
-                $city = strtolower($_POST['city']);
-            } else {
-                $city =  "";
-            }
-            if (!empty($_POST['price'])) {
-                $price = $_POST['price'];
-            } else {
-                $price =  0;
-            }
             $propertyManager = new PropertyManager();
-            $properties = $propertyManager->searchProperty($surface, $room, $city, $price);
+            $properties = $propertyManager->searchProperty(
+                $_SESSION['surface'],
+                $_SESSION['room'],
+                $_SESSION['city'],
+                $_SESSION['price'],
+                $page,
+                $nbElements
+            );
 
-            return $this->twig->render('Property/index.html.twig', ['items' => $properties]);
+            $totalElements = $propertyManager->countSearchedProperties(
+                $_SESSION['surface'],
+                $_SESSION['room'],
+                $_SESSION['city'],
+                $_SESSION['price']
+            );
+
+            $maxPages = ceil($totalElements / $nbElements);
+            $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+
+            return $this->twig->render('Property/index.html.twig', ['properties' => $properties,
+                                                                          'maxPages' => $maxPages,
+                                                                          'currentPage' => $page,
+                                                                          'nbElements' => $nbElements,
+                                                                          'pageURL' => $pageURL,
+                                                                          'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT]);
         } else {
             header("Location:index");
         }

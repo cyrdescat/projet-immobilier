@@ -1,13 +1,57 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    <h1>Properties</h1>
-    <ul>
-        {% for item in items %}
-            <li><a href="/property/show/{{ item.id }}">{{ item.id }}. {{ item.title }}</a></li>
-        {% else %}
-            <li>Nothing to display</li>
-        {% endfor %}
-    </ul>
-    <a href="/property/add">Ajouter</a>
+    <div class="container">
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <ul class="list-group list-group-flush">
+                    {% for property in properties %}
+                        <li class="list-group-item">
+                            <h3><a href="/Property/showOne?id={{ property.id }}">{{ property.title }}</a></h3>
+                            <p>
+                                {% if property.description|length > 50 %}
+                                    {{ property.description|slice(0,50) ~ '...' }}
+                                {% else %}
+                                    {{ property.description }}
+                                {% endif %}
+                            </p>
+                        </li>
+                        {% else %}
+                        <li>Aucun bien ne corresponds a votre recherche !</li>
+                    {% endfor %}
+                </ul>
+                <ul class="pagination">
+                    {% if currentPage - (nearbyPagesLimit - 1) > 1 %}
+                        <li class="page-item">
+                            <a class="page-link" href="{{ pageURL }}?page=1&nbElements={{ nbElements }}">
+                                First
+                            </a>
+                        </li>
+                    {% endif %}
+                    {% for i in 1..maxPages %}
+                        {% if (currentPage - nearbyPagesLimit) - loop.index == 0 or
+                            (currentPage + nearbyPagesLimit) - loop.index == 0 %}
+                            <li class="page-item disabled"><a class="page-link">...</a></li>
+                        {% elseif currentPage - nearbyPagesLimit - loop.index > 0 %}
+                        {% elseif currentPage + nearbyPagesLimit - loop.index < 0 %}
+                        {% else %}
+                            <li class="page-item {% if currentPage == loop.index %}active{% endif %}">
+                            <a class="page-link" href="{{ pageURL }}?page={{ loop.index }}&nbElements={{ nbElements }}">
+                                {{ loop.index }}
+                            </a>
+                            </li>
+                        {% endif %}
+                    {% endfor %}
+                    {% if currentPage + (nearbyPagesLimit - 1) < maxPages %}
+                        <li>
+                            <a class="page-link"  href="{{ pageURL }}?page={{ maxPages }}&nbElements={{ nbElements }}">
+                                Last
+                            </a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+    </div>
 {% endblock %}
