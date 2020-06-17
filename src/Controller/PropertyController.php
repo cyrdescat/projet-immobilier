@@ -190,7 +190,6 @@ class PropertyController extends AbstractController
     }
 
     /**
-     * Display item informations specified by $id
      * @throws \Twig\Error\LoaderError
      * @throws \Twig\Error\RuntimeError
      * @throws \Twig\Error\SyntaxError
