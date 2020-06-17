@@ -18,6 +18,11 @@ class HomeController extends AbstractController
      */
     private $limitSlider = 3;
 
+     /**
+     * @var integer
+     */
+    private $favorite  = 1;
+
     /**
      * Display home page
      *
@@ -28,13 +33,16 @@ class HomeController extends AbstractController
      */
     public function index()
     {
-        //Slider
+        // Slider
         $propertyManager = new PropertyManager();
         $items = $propertyManager->selectSlider($this->limitSlider);
 
-        //Coup de coeur
+        // Favorite
+        $item = $propertyManager->selectOneById($this->favorite);
 
+        // Last 10 new properties
+        $newProperties = $propertyManager->selectNewProperty();
 
-        return $this->twig->render('Home/index.html.twig', ['items' => $items]);
+        return $this->twig->render('Home/index.html.twig', ['items' => $items, 'favorite' => $item, 'newProperties' => $newProperties]);
     }
 }

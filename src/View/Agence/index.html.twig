@@ -3,12 +3,87 @@
 
 {% block content %}
     <h1>Agences</h1>
-    <ul>
-        {% for item in items %}
-            <li><a href="/item/show/{{ item.id }}">{{ item.id }}. {{ item.title }}</a></li>
+    <div class="flex-container-agence">
+        {% for agence in agences %}
+
+            <div>{{ agence.id }} {{ agence.name }} {{ agence.adress }} {{ agence.postal_code }} {{ agence.phone }} {{ agence.contact }}</div>
+            
+            <div id="mapid{{ agence.id }}"></div>
+            
+            <script>
+	            var mymap = L.map('mapid{{ agence.id }}').setView([{{ agence.longitude }}, {{ agence.latitude }}], 13);
+
+	            L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+                maxZoom: 18,
+                attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                id: 'mapbox/streets-v11',
+                tileSize: 512,
+                zoomOffset: -1
+                }).addTo(mymap);
+
+                L.marker([{{ agence.longitude }}, {{ agence.latitude }}]).addTo(mymap)
+                    .bindPopup("<b>{{ agence.name }}</b><br />{{ agence.adress }}").openPopup();
+
+                L.circle([{{ agence.longitude }}, {{ agence.latitude }}], 500, {
+                    color: 'red',
+                    fillColor: '#f03',
+                    fillOpacity: 0.5
+                }).addTo(mymap).bindPopup("I am a circle.");
+
+                var popup = L.popup();
+
+                function onMapClick(e) {
+                    popup
+                        .setLatLng(e.latlng)
+                        .setContent("You clicked the map at " + e.latlng.toString())
+                        .openOn(mymap);
+                }
+
+                mymap.on('click', onMapClick);
+            </script>
+            
         {% else %}
-            <li>Nothing to display</li>
+            <div>Nothing to display</div>
         {% endfor %}
-    </ul>
-    <a href="/item/add">Ajouter</a>
+    </div>
+    <div class="flex-container-agence">      
+        <div id='map'></div>
+
+        <script>
+            var cities = L.layerGroup();
+
+            L.marker([25.031259, -77.399192]).bindPopup('This is 1, CO.').addTo(cities),
+            L.marker([26.532556, -78.642292]).bindPopup('This is 2, CO.').addTo(cities),
+            L.marker([26.546885, -77.090167]).bindPopup('This is 3, CO.').addTo(cities);
+
+
+            var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+                    '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+                    'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+                mbUrl = 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw';
+
+            var grayscale   = L.tileLayer(mbUrl, {id: 'mapbox/light-v9', tileSize: 512, zoomOffset: -1, attribution: mbAttr}),
+                streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
+
+            var map = L.map('map', {
+                center: [26.340483, -77.699929],
+                zoom: 6,
+                layers: [grayscale, cities]
+            });
+
+            var baseLayers = {
+                "Grayscale": grayscale,
+                "Streets": streets
+            };
+
+            var overlays = {
+                "Cities": cities
+            };
+
+            L.control.layers(baseLayers, overlays).addTo(map);
+        </script>
+                    
+    </div>
 {% endblock %}

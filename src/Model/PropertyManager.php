@@ -34,7 +34,7 @@ class PropertyManager extends AbstractManager
      */
     public function selectSlider(int $limit): array
     {
-        $query = "SELECT pr.*, p.* "
+        $query = "SELECT pr.*, pr.title AS propertyTitle, p.* "
                . "FROM " . $this->table . " as pr "
                . "JOIN picture p ON pr.id = p.id_property "
                . "WHERE p.front = 1 "
