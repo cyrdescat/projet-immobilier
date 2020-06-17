@@ -133,6 +133,8 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 4 || $filterId == 5) {
             $column = "price";
+        } else {
+            $column = "created";
         }
 
         if ($isNew) {

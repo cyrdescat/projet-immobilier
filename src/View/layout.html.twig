@@ -22,6 +22,14 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
 <header>
+    <div class="topnav">
+        <a class="active" href="/home/index">Accueil</a>
+        <a href="">Ventes</a>
+        <a href="">Neufs</a>
+        <a href="">Ultra Luxe</a>
+        <a href="/agence/index">Nos Agences</a>
+        <a href="/contact/add">Contact</a>
+    </div>
     <form method="post" action="/Property/searchProperties">
         <div>
             <label  for="price">Prix max :</label>
@@ -46,16 +54,6 @@
 </header>
 <body>
 
-<div>
-    <ul>
-        <li><a href="/">Accueil</a></li>
-        <li>Ventes</li>
-        <li>Neufs</li>
-        <li>Ultra Luxe</li>
-        <li><a href="/agence/index">Nos Agences</a></li>
-        <li><a href="/contact/add">Contact</a></li>
-    </ul>
-<div>
 {% block content %}{% endblock %}
 <div>
     <h2>Footer</h2>
