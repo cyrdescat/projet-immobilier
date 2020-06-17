@@ -64,16 +64,24 @@ class PropertyManager extends AbstractManager
      * @param int $room
      * @param string $city
      * @param int $price
+     * @param bool $isNew
      * @return string
      */
-    public function countSearchedProperties(int $surface, int $room, string $city, int $price) : string
+    public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = false) : string
     {
+        if ($isNew) {
+            $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
+        } else {
+            $new = "";
+        }
+
         if ($price !== 0) {
             $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
                                                     JOIN city ON city.id = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND price <= :price 
+                                                    $new
                                                     AND city.name LIKE LOWER(:city)");
 
             $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
@@ -88,6 +96,7 @@ class PropertyManager extends AbstractManager
                                                     JOIN city ON city.id = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
+                                                    $new
                                                     AND city.name LIKE LOWER(:city)");
 
             $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
@@ -105,10 +114,35 @@ class PropertyManager extends AbstractManager
      * @param int $price
      * @param int $page
      * @param int $nbElement
+     * @param int $filterId
+     * @param boolean|bool $isNew
      * @return array
      */
-    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement) : array
+    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement, int $filterId, $isNew = false) : array
     {
+        if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
+            $order = "ASC";
+        } else {
+            $order = "DESC";
+        }
+        if ($filterId == 0 || $filterId == 1) {
+            $column = "created";
+        }
+        if ($filterId == 2 || $filterId == 3) {
+            $column = "surface";
+        }
+        if ($filterId == 4 || $filterId == 5) {
+            $column = "price";
+        } else {
+            $column = "created";
+        }
+
+        if ($isNew) {
+            $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
+        } else {
+            $new = "";
+        }
+
         if ($price !== 0) {
             $statement = $this->pdo->prepare("SELECT * FROM $this->table 
                                                     JOIN city ON city.id = property.id_city 
@@ -116,6 +150,8 @@ class PropertyManager extends AbstractManager
                                                     AND room >= :room 
                                                     AND price <= :price 
                                                     AND city.name LIKE LOWER(:city)
+                                                    $new
+                                                    ORDER BY $column $order 
                                                     LIMIT :offset, :limit");
 
             $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
@@ -133,6 +169,8 @@ class PropertyManager extends AbstractManager
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND city.name LIKE LOWER(:city)
+                                                    $new
+                                                    ORDER BY $column $order 
                                                     LIMIT :offset, :limit");
 
             $statement->bindValue('surface', $surface, \PDO::PARAM_INT);
@@ -145,6 +183,8 @@ class PropertyManager extends AbstractManager
             return $statement->fetchAll();
         }
     }
+
+
 
     /**
      * @param array $item

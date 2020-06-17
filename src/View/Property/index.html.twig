@@ -5,6 +5,28 @@
         <div class="row">
             <div class="col-1"></div>
             <div class="col-10">
+                <div class="row">
+
+                    <div class="dropdown show">
+                        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            Trier par : {{ currentFilter }}
+                        </a>
+
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                            {% for filterId,filter in filters %}
+                                <a class="dropdown-item" href="{{ pageURL }}?page=1&nbElements={{ pageNumber }}&filter={{ filterId }}">{{ filter }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <div class="btn-group" role="group" aria-label="Page numbers">
+                        {% for pageNumber in pagesNumber %}
+                            <button onclick="location.href='{{ pageURL }}?page=1&nbElements={{ pageNumber }}&filter={{ currentFilterId }}'" type="button" class="btn btn-secondary">
+                                {{ pageNumber }}
+                            </button>
+                        {% endfor %}
+                    </div>
+                </div>
                 <ul class="list-group list-group-flush">
                     {% for property in properties %}
                         <li class="list-group-item">
@@ -24,7 +46,7 @@
                 <ul class="pagination">
                     {% if currentPage - (nearbyPagesLimit - 1) > 1 %}
                         <li class="page-item">
-                            <a class="page-link" href="{{ pageURL }}?page=1&nbElements={{ nbElements }}">
+                            <a class="page-link" href="{{ pageURL }}?page=1&nbElements={{ nbElements }}&filter={{ currentFilterId }}">
                                 First
                             </a>
                         </li>
@@ -37,7 +59,7 @@
                         {% elseif currentPage + nearbyPagesLimit - loop.index < 0 %}
                         {% else %}
                             <li class="page-item {% if currentPage == loop.index %}active{% endif %}">
-                            <a class="page-link" href="{{ pageURL }}?page={{ loop.index }}&nbElements={{ nbElements }}">
+                            <a class="page-link" href="{{ pageURL }}?page={{ loop.index }}&nbElements={{ nbElements }}&filter={{ currentFilterId }}">
                                 {{ loop.index }}
                             </a>
                             </li>
@@ -45,13 +67,13 @@
                     {% endfor %}
                     {% if currentPage + (nearbyPagesLimit - 1) < maxPages %}
                         <li>
-                            <a class="page-link"  href="{{ pageURL }}?page={{ maxPages }}&nbElements={{ nbElements }}">
+                            <a class="page-link"  href="{{ pageURL }}?page={{ maxPages }}&nbElements={{ nbElements }}&filter={{ currentFilterId }}">
                                 Last
                             </a>
                         </li>
                     {% endif %}
                 </ul>
-            </div>
+            </di>
         </div>
     </div>
 {% endblock %}
