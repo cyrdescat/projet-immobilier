@@ -1,0 +1,10 @@
+<form method="post" >
+    <input type="hidden" value="{{ contact.id }}" name="id" required>
+    <input type="text" value="{{ contact.lastname }}" name="lastname" required>
+    <input type="text" value="{{ contact.fisrtName }}" name="firstName" required>
+    <input type="mail" value="{{ contact.mail }}" name="mail" required>
+    <input type="tel" value="{{ contact.phone }}" name="phone" required>
+    <input type="text" value="{{ contact.subject }}" name="subject" required>
+    <input type="text" value="{{ contact.message }}" name="message" required>
+    <input type="submit" value="Valider">
+</form>
