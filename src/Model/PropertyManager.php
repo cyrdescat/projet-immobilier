@@ -127,9 +127,9 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 0 || $filterId == 1) {
             $column = "created";
-        } else if ($filterId == 2 || $filterId == 3) {
+        } elseif ($filterId == 2 || $filterId == 3) {
             $column = "surface";
-        } else if ($filterId == 4 || $filterId == 5) {
+        } elseif ($filterId == 4 || $filterId == 5) {
             $column = "price";
         } else {
             $column = "created";
@@ -197,9 +197,9 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 0 || $filterId == 1) {
             $column = "created";
-        } else if ($filterId == 2 || $filterId == 3) {
+        } elseif ($filterId == 2 || $filterId == 3) {
             $column = "surface";
-        } else if ($filterId == 4 || $filterId == 5) {
+        } elseif ($filterId == 4 || $filterId == 5) {
             $column = "price";
         } else {
             $column = "created";
@@ -232,9 +232,9 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 0 || $filterId == 1) {
             $column = "created";
-        } else if ($filterId == 2 || $filterId == 3) {
+        } elseif ($filterId == 2 || $filterId == 3) {
             $column = "surface";
-        } else if ($filterId == 4 || $filterId == 5) {
+        } elseif ($filterId == 4 || $filterId == 5) {
             $column = "price";
         } else {
             $column = "created";
