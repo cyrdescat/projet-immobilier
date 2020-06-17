@@ -111,12 +111,15 @@ class PropertyController extends AbstractController
             $maxPages = ceil($totalElements / $nbElements);
             $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
 
-            return $this->twig->render('Property/index.html.twig', ['properties' => $properties,
-                                                                          'maxPages' => $maxPages,
-                                                                          'currentPage' => $page,
-                                                                          'nbElements' => $nbElements,
-                                                                          'pageURL' => $pageURL,
-                                                                          'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT]);
+            return $this->twig->render('Property/index.html.twig', [
+                'properties' => $properties,
+                'maxPages' => $maxPages,
+                'currentPage' => $page,
+                'nbElements' => $nbElements,
+                'pageURL' => $pageURL,
+                'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
+                'pagesNumber' => self::PAGES_NUMBER,
+            ]);
         } else {
             header("Location:index");
         }
