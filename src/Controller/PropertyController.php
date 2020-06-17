@@ -189,6 +189,17 @@ class PropertyController extends AbstractController
         return $this->twig->render('Property/add.html.twig');
     }
 
+    /**
+     * Display item informations specified by $id
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function showOne()
+    {
+        echo $_GET['id'];
+        return $this->twig->render('Property/showOne.html.twig');
+    }
 
     /**
      * Handle item deletion
