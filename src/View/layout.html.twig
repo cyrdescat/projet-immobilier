@@ -46,16 +46,15 @@
 </header>
 <body>
 
-<div>
-    <ul>
-        <li><a href="http://localhost:8000/">Accueil</a></li>
-        <li>Ventes</li>
-        <li>Neufs</li>
-        <li>Ultra Luxe</li>
-        <li><a href="http://localhost:8000/agence/index">Nos Agences</a></li>
-        <li><a href="http://localhost:8000/contact/add">Contact</a></li>
-    </ul>
-<div>
+<div class="topnav">
+    <a class="active" href="/home/index">Accueil</a>
+    <a href="">Ventes</a>
+    <a href="">Neufs</a>
+    <a href="">Ultra Luxe</a>
+    <a href="/agence/index">Nos Agences</a>
+    <a href="/contact/add">Contact</a>
+</div>
+
 {% block content %}{% endblock %}
 <div>
     <h2>Footer</h2>

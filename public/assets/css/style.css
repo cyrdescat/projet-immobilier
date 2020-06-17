@@ -20,18 +20,37 @@
 
 .flex-container-agence > div {
     background-color: #f1f1f1;
-    width: 48%;
-    margin: 10px;
+    width: 70%;
+    margin: auto;
     text-align: center;
     line-height: 75px;
 }
 
-#mapid1, #mapid2, #mapid3 { 
-    height: 280px; 
+#map { 
+    height: 500px; 
     max-width: 100%
 }
 
-#mapid21, #mapid22, #mapid23, #map { 
-    height: 280px; 
-    max-width: 100%
-}
+.topnav {
+    overflow: hidden;
+    background-color: #333;
+  }
+  
+  .topnav a {
+    float: left;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  .topnav a.active {
+    background-color: #4CAF50;
+    color: white;
+  }  
