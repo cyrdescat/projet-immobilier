@@ -18,6 +18,14 @@ use App\Model\PropertyManager;
 class PropertyController extends AbstractController
 {
     const PAGES_NUMBER = [10, 20, 50];
+    const PAGES_SORT = [
+        'plus récentes',
+        'plus anciennes',
+        'plus grandes',
+        'plus petites',
+        'prix croissants',
+        'prix décroissants'
+    ];
     const NEARBY_PAGES_LIMIT = 3;
 
     /**
@@ -64,7 +72,7 @@ class PropertyController extends AbstractController
                 $_SESSION['price'] = 0;
             }
 
-            header("Location:/Property/showSearchedProperties?page=1&nbElements=10");
+            header("Location:/Property/showSearchedProperties?page=1&nbElements=10&filter=0");
         } else {
             header("Location:index");
         }
@@ -85,11 +93,19 @@ class PropertyController extends AbstractController
             } else {
                 $page = 1;
             }
+
             if (isset($_GET['nbElements']) && is_numeric($_GET['nbElements']) && $_GET['nbElements'] >= 1) {
                 $nbElements = $_GET['nbElements'];
             } else {
                 $nbElements = 10;
             }
+
+            if (isset($_GET['filter']) && array_key_exists($_GET['filter'], self::PAGES_SORT)) {
+                $filterId = $_GET['filter'];
+            } else {
+                $filterId = 0;
+            }
+            $filter = self::PAGES_SORT[$filterId];
 
             $propertyManager = new PropertyManager();
             $properties = $propertyManager->searchProperty(
@@ -98,7 +114,8 @@ class PropertyController extends AbstractController
                 $_SESSION['city'],
                 $_SESSION['price'],
                 $page,
-                $nbElements
+                $nbElements,
+                $filterId
             );
 
             $totalElements = $propertyManager->countSearchedProperties(
@@ -111,8 +128,12 @@ class PropertyController extends AbstractController
             $maxPages = ceil($totalElements / $nbElements);
             $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
 
+            var_dump(self::PAGES_SORT);
             return $this->twig->render('Property/index.html.twig', [
                 'properties' => $properties,
+                'currentFilter' => $filter,
+                'currentFilterId' => $filterId,
+                'filters' => self::PAGES_SORT,
                 'maxPages' => $maxPages,
                 'currentPage' => $page,
                 'nbElements' => $nbElements,
@@ -136,6 +157,7 @@ class PropertyController extends AbstractController
      */
     public function show(int $id)
     {
+
         $propertyManager = new PropertyManager();
         $item = $propertyManager->selectOneById($id);
 
