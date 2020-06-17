@@ -218,8 +218,14 @@ class PropertyController extends AbstractController
      */
     public function showOne()
     {
-        echo $_GET['id'];
-        return $this->twig->render('Property/showOne.html.twig');
+        $propertyManager = new PropertyManager();
+        $property = $propertyManager->selectAllFromOne($_GET["id"]);
+
+        $pictures = $propertyManager->selectPicturesFromOne($_GET["id"]);
+        
+        var_dump($pictures);
+
+        return $this->twig->render('/Property/showOne.html.twig', ['property' => $property]);
     }
 
     /**
