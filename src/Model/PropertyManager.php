@@ -96,6 +96,7 @@ class PropertyManager extends AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch();
+    }
 
     /**
      * Get last new 10 propertys into database.
