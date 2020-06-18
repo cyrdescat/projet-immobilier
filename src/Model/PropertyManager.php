@@ -60,6 +60,48 @@ class PropertyManager extends AbstractManager
     }
 
     /**
+     * Get all data from 1 property.
+     *
+     * @return array
+     */
+    public function selectAllFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT pr.*, c.name FROM $this->table as pr 
+                                        JOIN city as c ON c.id = pr.id_city 
+                                        WHERE pr.id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
+    /**
+     * Get all Pictures from 1 property.
+     *
+     * @return array
+     */
+    public function selectPicturesFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT p.* FROM picture as p WHERE p.id_property = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Get Agence data for 1 property.
+     *
+     * @return array
+     */
+    public function selectAgenceFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT a.name FROM $this->table as pr 
+                                        JOIN agence as a ON a.id = pr.id_agence 
+                                        WHERE pr.id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
+
+    /**
      * @param int $surface
      * @param int $room
      * @param string $city

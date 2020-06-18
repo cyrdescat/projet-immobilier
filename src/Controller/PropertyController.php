@@ -367,6 +367,26 @@ class PropertyController extends AbstractController
         return $this->twig->render('Property/add.html.twig');
     }
 
+    /**
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function showOne()
+    {
+        $propertyManager = new PropertyManager();
+        $property = $propertyManager->selectAllFromOne($_GET["id"]);
+        $pictures = $propertyManager->selectPicturesFromOne($_GET["id"]);
+        $agences = $propertyManager->selectAgenceFromOne($_GET["id"]);
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+
+        return $this->twig->render('/Property/showOne.html.twig', [
+            'property' => $property,
+            'pictures' => $pictures,
+            'agences' => $agences,
+            'pageURL' => $pageURL
+            ]);
+    }
 
     /**
      * Handle item deletion

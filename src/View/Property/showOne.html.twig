@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+    <h1>Property {{ property.title }}</h1>
+    
+    <div>
+        {% for picture in pictures %}
+        <img src="{{picture.picture}}" title="{{ picture.title }}" alt="{{ picture.alt }}" height="300" width="auto">
+        {% else %}
+            <div>Nothing to display</div>
+        {% endfor %}
+    </div>
+    <h2>{{ property.description }}</h2>
+    <div>
+        <h4>Prix : {{ property.price }} $</h4>
+        <ul>
+            <li>Adresse : {{ property.adress }} - {{ property.name }} - {{ property.postal_code }} </li>
+            <li>Nombres de pièces : {{ property.room }} </li>
+            <li>Surface : {{ property.surface }} m² </li>
+            <li>Offre parue le {{ property.created|date("d/m/Y") }} </li>
+            <li>Bien géré par l'{{ agences.name }} </li>
+        </ul>    
+    </div>
+{% endblock %}
