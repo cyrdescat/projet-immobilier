@@ -72,7 +72,7 @@ class ContactController extends AbstractController
                 'message' => $_POST['message'],
             ];
             $contactManager->insert($contact);
-            header('Location:/Home/index/');
+            header('Location:/Home/index');
         }
 
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
