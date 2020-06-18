@@ -379,7 +379,7 @@ class PropertyController extends AbstractController
         $pictures = $propertyManager->selectPicturesFromOne($_GET["id"]);
         $agences = $propertyManager->selectAgenceFromOne($_GET["id"]);
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
-
+        
         return $this->twig->render('/Property/showOne.html.twig', [
             'property' => $property,
             'pictures' => $pictures,

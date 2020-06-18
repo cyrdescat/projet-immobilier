@@ -48,35 +48,48 @@
                 class="active"
             {% endif %}
             href="/contact/add">Contact</a>
+        
+        <nav class="navbar navbar-dark ">
+            <button class="btn-search" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"><img src="/assets/images/loupe.svg"></span>
+            </button>
+        </nav>
+        <div class="pos-f-t">
+            <div class="collapse" id="navbarToggleExternalContent">
+                <div class=" p-4">
+                    <form class="flexsearch" method="post" action="/Property/searchProperties">
+                        <div>
+                            <label  for="price">Prix max :</label>
+                            <input class="inputsearch" type="number"  id="price"  name="price">
+                        </div>
+                        <div>
+                            <label  for="surface">Surface min :</label>
+                            <input  class="inputsearch" type="number"  id="surface"  name="surface">
+                        </div>
+                        <div>
+                            <label  for="room">Pièces min :</label>
+                            <input  class="inputsearch" type="number"  id="room"  name="room">
+                        </div>
+                        <div>
+                            <label  for="city">Ville :</label>
+                            <input class="inputsearch" type="text"  id="city"  name="city">
+                        </div>
+                        <div>
+                            <button  type="submit" id="submitdetail" name="submit">Rechercher</button>
+                        </div>
+                    </form>            
+                </div>
+            </div>
+        </div>
 
-        <form class="flexsearch" method="post" action="/Property/searchProperties">
-            <div>
-                <label  for="price">Prix max :</label>
-                <input  type="number"  id="price"  name="price">
-            </div>
-            <div>
-                <label  for="surface">Surface min :</label>
-                <input  type="number"  id="surface"  name="surface">
-            </div>
-            <div>
-                <label  for="room">Pièces min :</label>
-                <input  type="number"  id="room"  name="room">
-            </div>
-            <div>
-                <label  for="city">Ville :</label>
-                <input  type="text"  id="city"  name="city">
-            </div>
-            <div>
-                <button  type="submit" id="submit" name="submit">Rechercher</button>
-            </div>
-        </form>
+
     </div>
 </header>
 <body>
 
 {% block content %}{% endblock %}
 <div>
-    <h2>Footer</h2>
+    <h5 class="footer text-center">Copyright © 2020 LCL Design | La bande à qui parler</h5>
 </div>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>

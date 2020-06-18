@@ -1,28 +1,25 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-
-    <h1 class="text-center">Property {{ property.title }}</h1>
+<div class="bg_detail ">
+    <h1 class="text-center pt-25 mt-0">Property {{ property.title }}</h1>
 
     <div style="margin:auto; width:725px">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
-            <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+             <ol class="carousel-indicators">
+                {% for picture in pictures %}
+                    
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" {% if loop.index == 1 %} class="active" {% endif %}></li>
+                {% endfor %}
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <div class="item active">
-                    <img src="{{ pictures[0].picture }}" title="{{ pictures[0].title }}" alt="{{ pictures[0].alt }}" style="width:725px;height:380px">
-                </div>
-                <div class="item">
-                    <img src="{{ pictures[1].picture }}" title="{{ pictures[1].title }}" alt="{{ pictures[1].alt }}" style="width:725px;height:380px">
-                </div>    
-                <div class="item">
-                    <img src="{{ pictures[2].picture }}" title="{{ pictures[2].title }}" alt="{{ pictures[2].alt }}" style="width:725px;height:380px">
-                </div>
+                {% for picture in pictures %}
+                    <div class="item {% if loop.index == 1 %}active{% endif %}">
+                        <img src="{{ picture.picture }}" title="{{ picture.title }}" alt="{{ picture.alt }}" style="width:725px;height:380px">
+                    </div>
+                {% endfor %}
             </div>
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
@@ -39,19 +36,17 @@
     <div class="text-center">
         <h2>
         <p>{{ property.title }} {{ property.adress }} - {{ property.name }} </p>
-        <span>Prix : {{ property.price }} $</span>
+        <p>Prix : {{ property.price }} $</p>
+        <p>Surface : {{ property.surface }} m²</p>
+        <p>Nombres de pièces : {{ property.room }}</p>
+        <p>{{ property.description }}</p>
         </h2>
-        <div>
+        <hr>
+        <div class="pb-25">
             <span class="infobar"><img src="/assets/images/localisation.svg" alt="localisation" height="25px" width="25px"> {{ property.name }} ({{ property.postal_code }})</span>
             <span class="infobar"><img src="/assets/images/agence.svg" alt="agence" height="25px" width="25px"> Bien géré par l'{{ agences.name }}</span>
-            <span class="infobar"><img src="/assets/images/calendar.svg" alt="calendar" height="25px" width="25px"> Offre parue le {{ property.created|date("d/m/Y") }}</span>
+            <span class="infobar"><img src="/assets/images/calendar.svg" alt="calendar" height="25px" width="25px"> Offre parue le {{ property.created|date("d/m/Y") }}</span></br>
         </div>
-        <hr id="">
-        <ul>
-            <li>Nombres de pièces : {{ property.room }} </li>
-            <li>Surface : {{ property.surface }} m² </li>
-            <li>Offre parue le {{ property.created|date("d/m/Y") }} </li>
-            <li>Bien géré par l'{{ agences.name }} </li>
-        </ul>    
     </div>
+</div>
 {% endblock %}

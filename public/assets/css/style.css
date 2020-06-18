@@ -57,7 +57,6 @@
 
   .infobar {
     opacity: .8;
-    color: #494949;
     font-size: 15px;
     line-height: 30px;
     font-weight: 700;
@@ -68,4 +67,50 @@
   .flexsearch{
     display: flex;
     color: white;
+    justify-content: flex-end;
+  }
+
+  .bg_detail{
+    background-image: url(/assets/images/IMG_1694.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+  }
+
+  .pb-25{
+    padding-bottom: 25px;
+  }
+  .mt-0{
+    margin-top: 0px;
+  }
+  .pt-25{
+    padding-top: 25px;
+  }
+
+  .navbar{
+    margin-bottom: 0px!important;
+  }
+  .btn-search{
+    margin-left: auto!important;
+    border-radius: 20px;
+    width: 100px;
+  }
+  #submitdetail{
+    color: #333;
+    border-radius: 20px;
+    margin-left: 20px;
+  }
+
+  .inputsearch{
+    width: 100px;
+    border-radius: 5px;
+  }
+  .footer{
+    background-color: #333;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
   }
