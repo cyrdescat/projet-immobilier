@@ -27,6 +27,7 @@ class PropertyController extends AbstractController
         'prix décroissants'
     ];
     const NEARBY_PAGES_LIMIT = 3;
+    const MONTHS_TO_BE_NEW = 3;
 
     /**
      * Display item listing
@@ -128,7 +129,6 @@ class PropertyController extends AbstractController
             $maxPages = ceil($totalElements / $nbElements);
             $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
 
-            var_dump(self::PAGES_SORT);
             return $this->twig->render('Property/index.html.twig', [
                 'properties' => $properties,
                 'currentFilter' => $filter,
@@ -144,6 +144,162 @@ class PropertyController extends AbstractController
         } else {
             header("Location:index");
         }
+    }
+
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function sales()
+    {
+        if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        if (isset($_GET['nbElements']) && is_numeric($_GET['nbElements']) && $_GET['nbElements'] >= 1) {
+            $nbElements = $_GET['nbElements'];
+        } else {
+            $nbElements = 10;
+        }
+
+        if (isset($_GET['filter']) && array_key_exists($_GET['filter'], self::PAGES_SORT)) {
+            $filterId = $_GET['filter'];
+        } else {
+            $filterId = 0;
+        }
+        $filter = self::PAGES_SORT[$filterId];
+
+        $propertyManager = new PropertyManager();
+        $properties = $propertyManager->searchProperty(0, 0, "", 0, $page, $nbElements, $filterId);
+
+        $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
+
+        $maxPages = ceil($totalElements / $nbElements);
+        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+
+        return $this->twig->render('Property/index.html.twig', [
+            'properties' => $properties,
+            'currentFilter' => $filter,
+            'currentFilterId' => $filterId,
+            'filters' => self::PAGES_SORT,
+            'maxPages' => $maxPages,
+            'currentPage' => $page,
+            'nbElements' => $nbElements,
+            'pageURL' => $pageURL,
+            'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
+            'pagesNumber' => self::PAGES_NUMBER,
+        ]);
+    }
+
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function newProperties()
+    {
+        if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        if (isset($_GET['nbElements']) && is_numeric($_GET['nbElements']) && $_GET['nbElements'] >= 1) {
+            $nbElements = $_GET['nbElements'];
+        } else {
+            $nbElements = 10;
+        }
+
+        if (isset($_GET['filter']) && array_key_exists($_GET['filter'], self::PAGES_SORT)) {
+            $filterId = $_GET['filter'];
+        } else {
+            $filterId = 0;
+        }
+        $filter = self::PAGES_SORT[$filterId];
+
+        $propertyManager = new PropertyManager();
+        $properties = $propertyManager->searchProperty(
+            0,
+            0,
+            "",
+            0,
+            $page,
+            $nbElements,
+            $filterId,
+            self::MONTHS_TO_BE_NEW
+        );
+
+        $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
+
+        $maxPages = ceil($totalElements / $nbElements);
+        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+
+        return $this->twig->render('Property/index.html.twig', [
+            'properties' => $properties,
+            'currentFilter' => $filter,
+            'currentFilterId' => $filterId,
+            'filters' => self::PAGES_SORT,
+            'maxPages' => $maxPages,
+            'currentPage' => $page,
+            'nbElements' => $nbElements,
+            'pageURL' => $pageURL,
+            'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
+            'pagesNumber' => self::PAGES_NUMBER,
+        ]);
+    }
+
+    /**
+     * @return string
+     * @throws \Twig\Error\LoaderError
+     * @throws \Twig\Error\RuntimeError
+     * @throws \Twig\Error\SyntaxError
+     */
+    public function ultraLuxe()
+    {
+        if (isset($_GET['page']) && is_numeric($_GET['page']) && $_GET['page'] >= 1) {
+            $page = $_GET['page'];
+        } else {
+            $page = 1;
+        }
+
+        if (isset($_GET['nbElements']) && is_numeric($_GET['nbElements']) && $_GET['nbElements'] >= 1) {
+            $nbElements = $_GET['nbElements'];
+        } else {
+            $nbElements = 10;
+        }
+
+        if (isset($_GET['filter']) && array_key_exists($_GET['filter'], self::PAGES_SORT)) {
+            $filterId = $_GET['filter'];
+        } else {
+            $filterId = 0;
+        }
+        $filter = self::PAGES_SORT[$filterId];
+
+        $propertyManager = new PropertyManager();
+        $properties = $propertyManager->getUltraLuxe($page, $nbElements, $filterId);
+
+        $totalElements = $propertyManager->countUltraLuxe($page, $nbElements, $filterId);
+
+        $maxPages = ceil($totalElements / $nbElements);
+        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+
+        return $this->twig->render('Property/index.html.twig', [
+            'properties' => $properties,
+            'currentFilter' => $filter,
+            'currentFilterId' => $filterId,
+            'filters' => self::PAGES_SORT,
+            'maxPages' => $maxPages,
+            'currentPage' => $page,
+            'nbElements' => $nbElements,
+            'pageURL' => $pageURL,
+            'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
+            'pagesNumber' => self::PAGES_NUMBER,
+        ]);
     }
 
     /**
@@ -222,7 +378,7 @@ class PropertyController extends AbstractController
         $property = $propertyManager->selectAllFromOne($_GET["id"]);
         $pictures = $propertyManager->selectPicturesFromOne($_GET["id"]);
         $agences = $propertyManager->selectAgenceFromOne($_GET["id"]);
-        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('/Property/showOne.html.twig', [
             'property' => $property,
