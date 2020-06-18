@@ -127,7 +127,7 @@ class PropertyController extends AbstractController
             );
 
             $maxPages = ceil($totalElements / $nbElements);
-            $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+            $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
             return $this->twig->render('Property/index.html.twig', [
                 'properties' => $properties,
@@ -179,7 +179,7 @@ class PropertyController extends AbstractController
         $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
 
         $maxPages = ceil($totalElements / $nbElements);
-        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
@@ -237,7 +237,7 @@ class PropertyController extends AbstractController
         $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
 
         $maxPages = ceil($totalElements / $nbElements);
-        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
@@ -286,7 +286,7 @@ class PropertyController extends AbstractController
         $totalElements = $propertyManager->countUltraLuxe($page, $nbElements, $filterId);
 
         $maxPages = ceil($totalElements / $nbElements);
-        $pageURL = strtok($_SERVER['REQUEST_URI'], '?');
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
