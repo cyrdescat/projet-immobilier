@@ -32,7 +32,12 @@ class AgenceController extends AbstractController
         $agenceManager = new AgenceManager();
         $agences = $agenceManager->selectAll();
 
-        return $this->twig->render('Agence/index.html.twig', ['agences' => $agences]);
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+
+        return $this->twig->render('Agence/index.html.twig', [
+            'agences' => $agences,
+            'pageURL' => $pageURL,
+        ],);
     }
 
 

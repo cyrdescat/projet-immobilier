@@ -29,12 +29,12 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, pr.title AS propertyTitle, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_property "
                . "WHERE p.front = 1 "
+               . "ORDER BY pr.created DESC "
                . "LIMIT " . $limit;
         $statement = $this->pdo->query($query);
         $properties = $statement->fetchAll();
-        //$this->pdo->query('SELECT * FROM ' . $this->table . ' LIMIT ' . $limit);
 
         return $properties;
     }
@@ -48,7 +48,7 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_picture "
                . "WHERE p.front = 1 "
                . "ORDER BY pr.created DESC "
                . "LIMIT " .$limit;
@@ -68,9 +68,9 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_picture "
                . "WHERE p.front = 1 "
-               . "AND pr.id = 2 ";
+               . "AND pr.id_property = 2 ";
         $statement = $this->pdo->query($query);
         $favorite = $statement->fetch();
         

@@ -1,7 +1,7 @@
 .flex-container {
     display: flex;
     flex-wrap: wrap;
-    background-color: DodgerBlue;
+    /* background-color: DodgerBlue;*/
 }
 
 .flex-container > div {
@@ -15,7 +15,7 @@
 .flex-container-agence {
     display: flex;
     flex-wrap: wrap;
-    background-color: DodgerBlue;
+    /* background-color: DodgerBlue;*/
 }
 
 .flex-container-agence > div {

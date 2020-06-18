@@ -15,7 +15,8 @@
             L.marker([{{ agences[3].longitude }}, {{ agences[3].latitude }}]).bindPopup("<b>{{ agences[3].name }}</b><br />{{ agences[3].adress }}<br />{{ agences[3].phone }}").addTo(cities),
             L.marker([{{ agences[4].longitude }}, {{ agences[4].latitude }}]).bindPopup("<b>{{ agences[4].name }}</b><br />{{ agences[4].adress }}<br />{{ agences[4].phone }}").addTo(cities),
             L.marker([{{ agences[5].longitude }}, {{ agences[5].latitude }}]).bindPopup("<b>{{ agences[5].name }}</b><br />{{ agences[5].adress }}<br />{{ agences[5].phone }}").addTo(cities),
-            L.marker([{{ agences[6].longitude }}, {{ agences[6].latitude }}]).bindPopup("<b>{{ agences[6].name }}</b><br />{{ agences[6].adress }}<br />{{ agences[6].phone }}").addTo(cities);
+            L.marker([{{ agences[6].longitude }}, {{ agences[6].latitude }}]).bindPopup("<b>{{ agences[6].name }}</b><br />{{ agences[6].adress }}<br />{{ agences[6].phone }}").addTo(cities),
+            L.marker([{{ agences[7].longitude }}, {{ agences[7].latitude }}]).bindPopup("<b>{{ agences[7].name }}</b><br />{{ agences[7].adress }}<br />{{ agences[7].phone }}").addTo(cities);
             
             var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                     '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
@@ -26,8 +27,8 @@
                 streets  = L.tileLayer(mbUrl, {id: 'mapbox/streets-v11', tileSize: 512, zoomOffset: -1, attribution: mbAttr});
 
             var map = L.map('map', {
-                center: [26.340483, -77.699929],
-                zoom: 6,
+                center: [25.649933, -77.789409],
+                zoom:7,
                 layers: [grayscale, cities]
             });
 
