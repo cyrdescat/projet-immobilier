@@ -107,9 +107,9 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_property "
                . "WHERE p.front = 1 "
-               . "AND pr.id = 2 ";
+               . "AND pr.id_property = 2 ";
         $statement = $this->pdo->query($query);
         $favorite = $statement->fetch();
         
