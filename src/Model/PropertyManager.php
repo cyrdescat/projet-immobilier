@@ -76,6 +76,47 @@ class PropertyManager extends AbstractManager
         
         return $favorite;
     }
+    
+     /* Get all data from 1 property.
+     *
+     * @return array
+     */
+    public function selectAllFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT pr.*, c.name FROM $this->table as pr 
+                                        JOIN city as c ON c.id = pr.id_city 
+                                        WHERE pr.id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
+    /**
+     * Get all Pictures from 1 property.
+     *
+     * @return array
+     */
+    public function selectPicturesFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT p.* FROM picture as p WHERE p.id_property = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetchAll();
+    }
+
+    /**
+     * Get Agence data for 1 property.
+     *
+     * @return array
+     */
+    public function selectAgenceFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT a.name FROM $this->table as pr 
+                                        JOIN agence as a ON a.id = pr.id_agence 
+                                        WHERE pr.id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
+    }
 
     /**
      * @param int $surface
@@ -87,7 +128,7 @@ class PropertyManager extends AbstractManager
      */
     public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = false) : string
     {
-        if ($isNew) {
+        if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
         } else {
             $new = "";
@@ -133,10 +174,10 @@ class PropertyManager extends AbstractManager
      * @param int $page
      * @param int $nbElement
      * @param int $filterId
-     * @param boolean|bool $isNew
+     * @param int|int $isNew
      * @return array
      */
-    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement, int $filterId, $isNew = false) : array
+    public function searchProperty(int $surface, int $room, string $city, int $price, int $page, int $nbElement, int $filterId, int $isNew = 0) : array
     {
         if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
             $order = "ASC";
@@ -145,17 +186,15 @@ class PropertyManager extends AbstractManager
         }
         if ($filterId == 0 || $filterId == 1) {
             $column = "created";
-        }
-        if ($filterId == 2 || $filterId == 3) {
+        } elseif ($filterId == 2 || $filterId == 3) {
             $column = "surface";
-        }
-        if ($filterId == 4 || $filterId == 5) {
+        } elseif ($filterId == 4 || $filterId == 5) {
             $column = "price";
         } else {
             $column = "created";
         }
 
-        if ($isNew) {
+        if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
         } else {
             $new = "";
@@ -200,6 +239,76 @@ class PropertyManager extends AbstractManager
             $statement->execute();
             return $statement->fetchAll();
         }
+    }
+
+    /**
+     * @param int $page
+     * @param int $nbElement
+     * @param int $filterId
+     * @return string
+     */
+    public function countUltraLuxe(int $page, int $nbElement, int $filterId) : string
+    {
+        if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
+            $order = "ASC";
+        } else {
+            $order = "DESC";
+        }
+        if ($filterId == 0 || $filterId == 1) {
+            $column = "created";
+        } elseif ($filterId == 2 || $filterId == 3) {
+            $column = "surface";
+        } elseif ($filterId == 4 || $filterId == 5) {
+            $column = "price";
+        } else {
+            $column = "created";
+        }
+
+        $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
+                                                WHERE price >= 10000000 
+                                                ORDER BY $column $order 
+                                                LIMIT :offset, :limit");
+
+        $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+        $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+        $statement->execute();
+        return $statement->fetchColumn();
+    }
+
+    /**
+     * @param int $page
+     * @param int $nbElement
+     * @param int $filterId
+     * @return array
+     */
+    public function getUltraLuxe(int $page, int $nbElement, int $filterId) : array
+    {
+        if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
+            $order = "ASC";
+        } else {
+            $order = "DESC";
+        }
+        if ($filterId == 0 || $filterId == 1) {
+            $column = "created";
+        } elseif ($filterId == 2 || $filterId == 3) {
+            $column = "surface";
+        } elseif ($filterId == 4 || $filterId == 5) {
+            $column = "price";
+        } else {
+            $column = "created";
+        }
+
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                WHERE price >= 10000000 
+                                                ORDER BY $column $order 
+                                                LIMIT :offset, :limit");
+
+        $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
+        $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+
+        $statement->execute();
+        return $statement->fetchAll();
     }
 
 
