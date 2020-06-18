@@ -202,10 +202,12 @@ class PropertyManager extends AbstractManager
         if ($price !== 0) {
             $statement = $this->pdo->prepare("SELECT * FROM $this->table 
                                                     JOIN city ON city.id_city = property.id_city 
+                                                    JOIN picture p ON property.id_property = p.id_property 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND price <= :price 
                                                     AND city.name LIKE LOWER(:city)
+                                                    AND p.front = 1
                                                     $new
                                                     ORDER BY $column $order 
                                                     LIMIT :offset, :limit");
@@ -222,9 +224,11 @@ class PropertyManager extends AbstractManager
         } else {
             $statement = $this->pdo->prepare("SELECT * FROM $this->table 
                                                     JOIN city ON city.id_city = property.id_city 
+                                                    JOIN picture p ON property.id_property = p.id_property 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND city.name LIKE LOWER(:city)
+                                                    AND p.front = 1
                                                     $new
                                                     ORDER BY $column $order 
                                                     LIMIT :offset, :limit");
@@ -299,7 +303,9 @@ class PropertyManager extends AbstractManager
         }
 
         $statement = $this->pdo->prepare("SELECT * FROM $this->table 
+                                                JOIN picture p ON property.id_property = p.id_property 
                                                 WHERE price >= 10000000 
+                                                AND p.front = 1
                                                 ORDER BY $column $order 
                                                 LIMIT :offset, :limit");
 
