@@ -74,7 +74,7 @@ class PropertyManager extends AbstractManager
         return $statement->fetch();
     }
     /**
-     * Get all data from 1 property.
+     * Get all Pictures from 1 property.
      *
      * @return array
      */
@@ -84,6 +84,21 @@ class PropertyManager extends AbstractManager
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetchAll();
+    }
+
+    /**
+     * Get Agence data for 1 property.
+     *
+     * @return array
+     */
+    public function selectAgenceFromOne(int $id): array
+    {
+        $statement = $this->pdo->prepare("SELECT a.name FROM $this->table as pr 
+                                        JOIN agence as a ON a.id = pr.id_agence 
+                                        WHERE pr.id = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+        return $statement->fetch();
     }
 
     /**
