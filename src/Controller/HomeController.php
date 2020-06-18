@@ -35,14 +35,22 @@ class HomeController extends AbstractController
     {
         // Slider
         $propertyManager = new PropertyManager();
-        $items = $propertyManager->selectSlider($this->limitSlider);
+        $properties = $propertyManager->selectSlider($this->limitSlider);
 
-        // Favorite
-        $item = $propertyManager->selectOneById($this->favorite);
+        // Coup de coeur
+        $favorite = $propertyManager->selectFavorite();
 
         // Last 10 new properties
-        $newProperties = $propertyManager->selectNewProperty();
+        $propertyNum = 10; 
+        $newProperties = $propertyManager->selectNewProperty($propertyNum);  
+        
+        $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
-        return $this->twig->render('Home/index.html.twig', ['items' => $items, 'favorite' => $item, 'newProperties' => $newProperties]);
+        return $this->twig->render('Home/index.html.twig', [
+            'properties' => $properties, 
+            'favorite' => $favorite, 
+            'newProperties' => $newProperties,
+            'pageURL' => $pageURL
+        ]);
     }
 }
