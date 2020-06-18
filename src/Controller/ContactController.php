@@ -71,8 +71,7 @@ class ContactController extends AbstractController
                 'subject' => $_POST['subject'],
                 'message' => $_POST['message'],
             ];
-            $id = $contactManager->insert($contact);
-            header('Location:/Contact/add/' . $id);
+            header('Location:/Home/index/');
         }
 
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
