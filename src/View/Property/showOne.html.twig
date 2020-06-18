@@ -2,7 +2,7 @@
 
 {% block content %}
 <div>
-    <h1 class="text-center pt-25 mt-0">{{ property.title }}</h1>
+    <h1 class="text-center pt-25 mt-0">{{ property.title_property }}</h1>
 
     <div style="margin:auto; width:725px">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -36,7 +36,7 @@
         <div class="col-2"></div>
         <div class="col-8">
             <h3 class="text-center">
-            <p>{{ property.title }} {{ property.adress }} <br> {{ property.name }} </p>
+            <p>{{ property.adress }} - {{ property.name }} </p>
             <p>Prix : {{ property.price }} $</p>
             <p>Surface : {{ property.surface }} m²</p>
             <p>Nombres de pièces : {{ property.room }}</p>
