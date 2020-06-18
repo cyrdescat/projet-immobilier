@@ -18,6 +18,7 @@
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
+<<<<<<< HEAD
                 {% for property in properties %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
                         <a href="/Property/showOne?id={{ property.id_property }}"><img src="{{ property.picture }}" title="{{ property.title }}" alt="{{ property.alt }}" style="width:725px;height:380px"></a>
@@ -26,6 +27,26 @@
                         </div>
                     </div>
                 {% endfor %}
+=======
+                <div class="item active">
+                    <a href="/Property/showOne?id={{ properties[0].id_property }}"><img src="{{ properties[0].picture }}" title="{{ properties[0].title_property }}" alt="{{ properties[0].alt }}" style="width:725px;height:380px"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ properties[0].propertyTitle }}</h5>
+                    </div>
+                </div>
+                    <div class="item">
+                        <a href="/Property/showOne?id={{ properties[1].id_property }}"><img src="{{ properties[1].picture }}" title="{{ properties[1].title_property }}" alt="{{ properties[1].alt }}" style="width:725px;height:380px"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ properties[1].propertyTitle }}</h5>
+                    </div>
+                </div>    
+                <div class="item">
+                    <a href="/Property/showOne?id={{ properties[1].id_property }}"><img src="{{ properties[2].picture }}" title="{{ properties[2].title_property }}" alt="{{ properties[2].alt }}" style="width:725px;height:380px"></a>
+                    <div class="carousel-caption d-none d-md-block">
+                        <h5>{{ properties[2].propertyTitle }}</h5>
+                    </div>
+                </div>
+>>>>>>> 8c28527180e79ff6c280408149a21ef73434feb1
             </div>
 
             <!-- Left and right controls -->
@@ -39,6 +60,7 @@
             </a>
         </div>
     </div>
+<<<<<<< HEAD
     <hr class="hr-color">
     <h2 class="text-center">Coup de coeur</h2>
 
@@ -58,11 +80,19 @@
                 <a href="/Property/showOne?id={{ favorite.id_property }}" class=" card-link btn btn-primary">En savoir plus</a>
             </div>
             <hr>
+=======
+    <h2>Coup de coeur</h2>
+    <div class="flex-container" style="width: 100%">
+        <div>
+            <div><img class="picture-slider" src="/assets/images/villa-1.jpeg" alt="Grapefruit slice atop a pile of other slices" height="140px" width="225px">
+            <span>{{ favorite.id_property }} {{ favorite.title_property }} {{ favorite.surface }} m2, {{ favorite.room }}</span></div>
+>>>>>>> 8c28527180e79ff6c280408149a21ef73434feb1
         </div>
     </div>
     <h2 class="text-center">Nos 10 derniers biens</h2>
     <div class="flex-container mb-50">
         {% for newProperty in newProperties %}
+<<<<<<< HEAD
             
             <div class="card" style="height=140px; width=225px;">
             <img class="card-img-top" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" alt="Card image cap">
@@ -82,6 +112,10 @@
                 </div>
             </div>
      
+=======
+            <div><img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title_property }}" alt="{{ newProperty.alt }}" height="140px" width="225px">
+            {{ newProperty.id_property }} {{ newProperty.title_property }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
+>>>>>>> 8c28527180e79ff6c280408149a21ef73434feb1
         {% else %}
             <div>Nothing to display</div>
         {% endfor %}
