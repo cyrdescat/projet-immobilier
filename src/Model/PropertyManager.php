@@ -29,12 +29,11 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, pr.title AS propertyTitle, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_property "
                . "WHERE p.front = 1 "
                . "LIMIT " . $limit;
         $statement = $this->pdo->query($query);
         $properties = $statement->fetchAll();
-        //$this->pdo->query('SELECT * FROM ' . $this->table . ' LIMIT ' . $limit);
 
         return $properties;
     }
@@ -48,13 +47,12 @@ class PropertyManager extends AbstractManager
     {
         $query = "SELECT pr.*, p.* "
                . "FROM " . $this->table . " as pr "
-               . "JOIN picture p ON pr.id = p.id_property "
+               . "JOIN picture p ON pr.id_property = p.id_property "
                . "WHERE p.front = 1 "
                . "ORDER BY pr.created DESC "
                . "LIMIT 10 ";
         $statement = $this->pdo->query($query);
         $properties = $statement->fetchAll();
-        //return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY created DESC LIMIT 10')->fetchall();
         
         return $properties;
     }
@@ -67,12 +65,13 @@ class PropertyManager extends AbstractManager
     public function selectAllFromOne(int $id): array
     {
         $statement = $this->pdo->prepare("SELECT pr.*, c.name FROM $this->table as pr 
-                                        JOIN city as c ON c.id = pr.id_city 
-                                        WHERE pr.id = :id");
+                                        JOIN city as c ON c.id_city = pr.id_city 
+                                        WHERE pr.id_property = :id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch();
     }
+
     /**
      * Get all Pictures from 1 property.
      *
@@ -94,8 +93,8 @@ class PropertyManager extends AbstractManager
     public function selectAgenceFromOne(int $id): array
     {
         $statement = $this->pdo->prepare("SELECT a.name FROM $this->table as pr 
-                                        JOIN agence as a ON a.id = pr.id_agence 
-                                        WHERE pr.id = :id");
+                                        JOIN agence as a ON a.id_agence = pr.id_agence 
+                                        WHERE pr.id_property = :id");
         $statement->bindValue('id', $id, \PDO::PARAM_INT);
         $statement->execute();
         return $statement->fetch();
@@ -119,7 +118,7 @@ class PropertyManager extends AbstractManager
 
         if ($price !== 0) {
             $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
-                                                    JOIN city ON city.id = property.id_city 
+                                                    JOIN city ON city.id_city = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND price <= :price 
@@ -135,7 +134,7 @@ class PropertyManager extends AbstractManager
             return $statement->fetchColumn();
         } else {
             $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
-                                                    JOIN city ON city.id = property.id_city 
+                                                    JOIN city ON city.id_city = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     $new
@@ -185,7 +184,7 @@ class PropertyManager extends AbstractManager
 
         if ($price !== 0) {
             $statement = $this->pdo->prepare("SELECT * FROM $this->table 
-                                                    JOIN city ON city.id = property.id_city 
+                                                    JOIN city ON city.id_city = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND price <= :price 
@@ -205,7 +204,7 @@ class PropertyManager extends AbstractManager
             return $statement->fetchAll();
         } else {
             $statement = $this->pdo->prepare("SELECT * FROM $this->table 
-                                                    JOIN city ON city.id = property.id_city 
+                                                    JOIN city ON city.id_city = property.id_city 
                                                     WHERE surface >= :surface 
                                                     AND room >= :room 
                                                     AND city.name LIKE LOWER(:city)
@@ -294,6 +293,15 @@ class PropertyManager extends AbstractManager
         return $statement->fetchAll();
     }
 
+    public function selectOneById(int $id)
+    {
+        // prepared request
+        $statement = $this->pdo->prepare("SELECT * FROM $this->table WHERE id_property = :id");
+        $statement->bindValue('id', $id, \PDO::PARAM_INT);
+        $statement->execute();
+
+        return $statement->fetch();
+    }
 
 
     /**

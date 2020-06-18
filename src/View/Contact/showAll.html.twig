@@ -1,0 +1,34 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <h1 class="centerText">contacts</h1>
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Nom</th>
+                        <th >Prénom</th>
+                        <th >Sujet</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for id, contact in contacts %}
+                        <tr class="clickableHover">
+                            <td><a class="clickableRow" href="/Contact/showOne?id={{ id }}">{{ contact.lastName }}</a></td>
+                            <td><a class="clickableRow" href="/Contact/showOne?id={{ id }}">{{ contact.firstName }}</a></td>
+                            <td><a class="clickableRow" href="/Contact/showOne?id={{ id }}">{{ contact.subject }}</a></td>
+                            <td><button onclick="location.href='/Contact/showAll?id={{ id }}'" type="button" class="btn btn-danger">Supprimer</button></td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            <button onclick="location.href='/Contact/showAll?id=ALL'" type="button" class="btn btn-danger btn-lg">SUPPRIMER TOUT</button>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
