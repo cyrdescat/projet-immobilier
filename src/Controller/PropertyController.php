@@ -246,13 +246,14 @@ class PropertyController extends AbstractController
             self::MONTHS_TO_BE_NEW
         );
 
-        $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
+        $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0, self::MONTHS_TO_BE_NEW);
 
         if ($totalElements != 0) {
             $maxPages = ceil($totalElements / $nbElements);
         } else {
             $maxPages = 1;
         }
+
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
         $title = "Neufs";
 

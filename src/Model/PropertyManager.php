@@ -125,7 +125,7 @@ class PropertyManager extends AbstractManager
      * @param bool $isNew
      * @return string
      */
-    public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = false) : string
+    public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = 0) : string
     {
         if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
