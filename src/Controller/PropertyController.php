@@ -132,6 +132,7 @@ class PropertyController extends AbstractController
                 $maxPages = 1;
             }
             $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+            $title = "Resultat de votre recherche";
 
             return $this->twig->render('Property/index.html.twig', [
                 'properties' => $properties,
@@ -142,6 +143,7 @@ class PropertyController extends AbstractController
                 'currentPage' => $page,
                 'nbElements' => $nbElements,
                 'pageURL' => $pageURL,
+                'title' => $title,
                 'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
                 'pagesNumber' => self::PAGES_NUMBER,
             ]);
@@ -188,6 +190,7 @@ class PropertyController extends AbstractController
             $maxPages = 1;
         }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+        $title = "Ventes";
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
@@ -198,6 +201,7 @@ class PropertyController extends AbstractController
             'currentPage' => $page,
             'nbElements' => $nbElements,
             'pageURL' => $pageURL,
+            'title' => $title,
             'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
             'pagesNumber' => self::PAGES_NUMBER,
         ]);
@@ -250,6 +254,7 @@ class PropertyController extends AbstractController
             $maxPages = 1;
         }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+        $title = "Neufs";
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
@@ -260,6 +265,7 @@ class PropertyController extends AbstractController
             'currentPage' => $page,
             'nbElements' => $nbElements,
             'pageURL' => $pageURL,
+            'title' => $title,
             'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
             'pagesNumber' => self::PAGES_NUMBER,
         ]);
@@ -303,6 +309,7 @@ class PropertyController extends AbstractController
             $maxPages = 1;
         }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
+        $title = "UltraLuxe";
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
@@ -313,6 +320,7 @@ class PropertyController extends AbstractController
             'currentPage' => $page,
             'nbElements' => $nbElements,
             'pageURL' => $pageURL,
+            'title' => $title,
             'nearbyPagesLimit' => self::NEARBY_PAGES_LIMIT,
             'pagesNumber' => self::PAGES_NUMBER,
         ]);
