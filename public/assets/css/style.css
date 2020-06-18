@@ -31,11 +31,33 @@
     max-width: 100%
 }
 
+.clickableHover:hover {
+    background: #00A5E3;
+}
+
+.clickableHover td {
+    padding: 0px !important;
+}
+
+.clickableRow {
+    display: block;
+    padding: 16px;
+    color: black;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.clickableRow:hover {
+    text-decoration: none;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #333;
   }
-  
+
   .topnav a {
     float: left;
     color: #f2f2f2;
@@ -53,4 +75,64 @@
   .topnav a.active {
     background-color: #4CAF50;
     color: white;
-  }  
+  }
+
+  .infobar {
+    opacity: .8;
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 25px;
+  }
+
+  .flexsearch{
+    display: flex;
+    color: white;
+    justify-content: flex-end;
+  }
+
+  .bg_detail{
+    background-image: url(/assets/images/IMG_1694.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    color: white;
+  }
+
+  .pb-25{
+    padding-bottom: 25px;
+  }
+  .mt-0{
+    margin-top: 0px;
+  }
+  .pt-25{
+    padding-top: 25px;
+  }
+
+  .navbar{
+    margin-bottom: 0px!important;
+  }
+  .btn-search{
+    margin-left: auto!important;
+    border-radius: 20px;
+    width: 100px;
+  }
+  #submitdetail{
+    color: #333;
+    border-radius: 20px;
+    margin-left: 20px;
+  }
+
+  .inputsearch{
+    width: 100px;
+    border-radius: 5px;
+  }
+  .footer{
+    background-color: #333;
+    color: white;
+    margin-top: 0px;
+    margin-bottom: 0px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }

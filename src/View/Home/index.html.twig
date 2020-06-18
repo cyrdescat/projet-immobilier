@@ -45,15 +45,15 @@
     <h2>Coup de coeur</h2>
     <div class="flex-container" style="width: 100%">
         <div>
-            <div><a href="/Property/showOne?id={{ favorite.id }}"><img src="{{ favorite.picture }}" title="{{ favorite.title }}" alt="{{ favorite.alt }}" height="140px" width="225px"></a>
-            <span>{{ favorite.id }} {{ favorite.title }} {{ favorite.surface }} m2, {{ favorite.room }}</span></div>
+            <div><img class="picture-slider" src="/assets/images/villa-1.jpeg" alt="Grapefruit slice atop a pile of other slices" height="140px" width="225px">
+            <span>{{ favorite.id_property }} {{ favorite.title }} {{ favorite.surface }} m2, {{ favorite.room }}</span></div>
         </div>
     </div>
     <h2>Nos 10 derniers biens</h2>
     <div class="flex-container">
         {% for newProperty in newProperties %}
-            <div><a href="/Property/showOne?id={{ newProperty.id }}"><img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" height="140px" width="225px"></a>
-            {{ newProperty.id }} {{ newProperty.title }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
+            <div><img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" height="140px" width="225px">
+            {{ newProperty.id_property }} {{ newProperty.title }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
         {% else %}
             <div>Nothing to display</div>
         {% endfor %}

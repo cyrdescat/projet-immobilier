@@ -1,0 +1,22 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col-1"></div>
+        <div class="col-10">
+            <h1 class="centerText">{{ contact.subject }}</h1>
+
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item">par {{ contact.firstName }} {{ contact.lastName }} </li>
+                <li class="list-group-item">Email : {{ contact.mail }} </li>
+                <li class="list-group-item">Téléphone : {{ contact.phone }} </li>
+                <li class="list-group-item">Message : <br> {{ contact.message }} </li>
+                <li class="list-group-item"></li>
+            </ul>
+            <button onclick="location.href='/Contact/showAll?id={{ id }}'" type="button" class="btn btn-danger">Supprimer</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

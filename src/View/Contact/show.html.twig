@@ -1,9 +1,0 @@
-{% extends 'layout.html.twig' %}
-
-{% block content %}
-    <h1>contact {{ contact.name }}</h1>
-    <p>{{ contact.id }}. {{ contact.name }}</p>
-    <a href="/contact/edit/{{ contact.id }}">Edit</a>
-    <a href="/contact/delete/{{contact.id}}">Supprimer</a>
-    <a href="/contact/index">Back</a>
-{% endblock %}
