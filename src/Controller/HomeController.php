@@ -16,7 +16,7 @@ class HomeController extends AbstractController
     /**
      * @var integer
      */
-    private $limitSlider = 3;
+    private $limitSlider = 10;
 
      /**
      * @var integer

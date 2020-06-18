@@ -1,6 +1,27 @@
 body{
-  position: relative;
+position: relative;
+background: #f0f9ff; /* Old browsers */
+background: -moz-linear-gradient(top,  #f0f9ff 0%, #cbebff 79%, #cbebff 79%, #a1dbff 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  #f0f9ff 0%,#cbebff 79%,#cbebff 79%,#a1dbff 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  #f0f9ff 0%,#cbebff 79%,#cbebff 79%,#a1dbff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f0f9ff', endColorstr='#a1dbff',GradientType=0 ); /* IE6-9 */
+background-attachment:fixed;
+background-repeat: no-repeat;
+min-height: 100% !important;
 }
+html, body{ height:100%; margin:0; }
+
+
+/* Trick */
+body{ 
+  display:flex; 
+  flex-direction:column; 
+}
+
+footer{
+  margin-top:auto; 
+}
+
 .flex-container {
     display: flex;
     flex-wrap: wrap;
@@ -12,12 +33,13 @@ body{
     width: 18%;
     margin: 10px;
     text-align: center;
-    line-height: 75px;
+    
 }
 
 .flex-container-agence {
     display: flex;
     flex-wrap: wrap;
+    height: 800px;
     /* background-color: DodgerBlue;*/
 }
 
@@ -26,12 +48,13 @@ body{
     width: 70%;
     margin: auto;
     text-align: center;
-    line-height: 75px;
+    line-height: 35px;
 }
 
 #map { 
-    height: 500px; 
-    max-width: 100%
+    height: 600px; 
+    max-width: 100%;
+    margin-top: 45px;
 }
 
 .clickableHover:hover {
@@ -73,6 +96,7 @@ body{
 .topnav a:hover {
   background-color: #ddd;
   color: black;
+  text-decoration: none;
 }
 
 .topnav a.active {
@@ -95,14 +119,6 @@ body{
   justify-content: flex-end;
 }
 
-.bg_detail{
-  background-image: url(/assets/images/IMG_1694.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-size: cover;
-  color: white;
-}
-
 .pb-25{
   padding-bottom: 25px;
 }
@@ -114,6 +130,9 @@ body{
 }
 .mb-50{
   margin-bottom: 50px;
+}
+.mt-30{
+  margin-top: 30px;
 }
 
 .navbar{
@@ -149,11 +168,19 @@ body{
   right: 0;
 }
 .fixbot-ab{
-  position: absolute;
+  position: relative;
   bottom: 0;
   width: 100%;
   right: 0;
+  left: 0;
 }
 .col-10{
   margin-bottom: 40px;
+  background-color: white ;
+}
+.hr-color{
+  color: #333;
+}
+textarea.form-control {
+  height: 130px !important;
 }

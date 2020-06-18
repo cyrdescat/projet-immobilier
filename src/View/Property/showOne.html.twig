@@ -1,8 +1,8 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-<div class="bg_detail ">
-    <h1 class="text-center pt-25 mt-0">Property {{ property.title }}</h1>
+<div>
+    <h1 class="text-center pt-25 mt-0">{{ property.title }}</h1>
 
     <div style="margin:auto; width:725px">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
@@ -32,20 +32,22 @@
             </a>
         </div>
     </div>
-
-    <div class="text-center">
-        <h2>
-        <p>{{ property.title }} {{ property.adress }} - {{ property.name }} </p>
-        <p>Prix : {{ property.price }} $</p>
-        <p>Surface : {{ property.surface }} m²</p>
-        <p>Nombres de pièces : {{ property.room }}</p>
-        <p>{{ property.description }}</p>
-        </h2>
-        <hr>
-        <div class="pb-25">
-            <span class="infobar"><img src="/assets/images/localisation.svg" alt="localisation" height="25px" width="25px"> {{ property.name }} ({{ property.postal_code }})</span>
-            <span class="infobar"><img src="/assets/images/agence.svg" alt="agence" height="25px" width="25px"> Bien géré par l'{{ agences.name }}</span>
-            <span class="infobar"><img src="/assets/images/calendar.svg" alt="calendar" height="25px" width="25px"> Offre parue le {{ property.created|date("d/m/Y") }}</span></br>
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+            <h3 class="text-center">
+            <p>{{ property.title }} {{ property.adress }} <br> {{ property.name }} </p>
+            <p>Prix : {{ property.price }} $</p>
+            <p>Surface : {{ property.surface }} m²</p>
+            <p>Nombres de pièces : {{ property.room }}</p>
+            <p>{{ property.description }}</p>
+            </h3>
+            <hr>
+            <div class="pb-25 text-center">
+                <span class="infobar"><img src="/assets/images/localisation.svg" alt="localisation" height="25px" width="25px"> {{ property.name }} ({{ property.postal_code }})</span>
+                <span class="infobar"><img src="/assets/images/agence.svg" alt="agence" height="25px" width="25px"> Bien géré par l'{{ agences.name }}</span>
+                <span class="infobar"><img src="/assets/images/calendar.svg" alt="calendar" height="25px" width="25px"> Offre parue le {{ property.created|date("d/m/Y") }}</span></br>
+            </div>
         </div>
     </div>
 </div>

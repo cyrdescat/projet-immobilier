@@ -1,36 +1,33 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}   
-    <h1>Bahamas Immobilier Defiscalisation</h1>
+    <h1 class="text-center mb-50">Bahamas Immobilier Defiscalisation</h1>
     <div style="margin:auto; width:725px">
         <div id="myCarousel" class="carousel slide" data-ride="carousel">
             <!-- Indicators -->
+
             <ol class="carousel-indicators">
-                <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-                <li data-target="#myCarousel" data-slide-to="1"></li>
-                <li data-target="#myCarousel" data-slide-to="2"></li>
+                {% set break = false %}
+                {% for property in properties if not break %}
+
+                    <li data-target="#myCarousel" data-slide-to="{{ loop.index }}" {% if loop.index == 1 %} class="active" {% endif %}></li>
+                    {% if loop.index == 10 %}
+                        {% set break = true %}
+                    {% endif %}   
+                {% endfor %}
             </ol>
             <!-- Wrapper for slides -->
             <div class="carousel-inner">
-                <div class="item active">
-                    <a href="/Property/showOne?id={{ properties[0].id_property }}"><img src="{{ properties[0].picture }}" title="{{ properties[0].title }}" alt="{{ properties[0].alt }}" style="width:725px;height:380px"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ properties[0].propertyTitle }}</h5>
+                {% for property in properties %}
+                    <div class="item {% if loop.index == 1 %} active {% endif %}">
+                        <a href="/Property/showOne?id={{ property.id_property }}"><img src="{{ property.picture }}" title="{{ property.title }}" alt="{{ property.alt }}" style="width:725px;height:380px"></a>
+                        <div class="carousel-caption d-none d-md-block">
+                            <h5>{{ property.propertyTitle }}</h5>
+                        </div>
                     </div>
-                </div>
-                    <div class="item">
-                        <a href="/Property/showOne?id={{ properties[1].id_property }}"><img src="{{ properties[1].picture }}" title="{{ properties[1].title }}" alt="{{ properties[1].alt }}" style="width:725px;height:380px"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ properties[1].propertyTitle }}</h5>
-                    </div>
-                </div>    
-                <div class="item">
-                    <a href="/Property/showOne?id={{ properties[1].id_property }}"><img src="{{ properties[2].picture }}" title="{{ properties[2].title }}" alt="{{ properties[2].alt }}" style="width:725px;height:380px"></a>
-                    <div class="carousel-caption d-none d-md-block">
-                        <h5>{{ properties[2].propertyTitle }}</h5>
-                    </div>
-                </div>
+                {% endfor %}
             </div>
+
             <!-- Left and right controls -->
             <a class="left carousel-control" href="#myCarousel" data-slide="prev">
                 <span class="glyphicon glyphicon-chevron-left"></span>
@@ -42,24 +39,53 @@
             </a>
         </div>
     </div>
-    <h2>Coup de coeur</h2>
-    <div class="flex-container " style="width: 100%">
-        <div>
-            <div><img class="picture-slider" src="/assets/images/villa-1.jpeg" alt="Grapefruit slice atop a pile of other slices" height="140px" width="225px">
-            <span>{{ favorite.id_property }} {{ favorite.title }} {{ favorite.surface }} m2, {{ favorite.room }}</span></div>
+    <hr class="hr-color">
+    <h2 class="text-center">Coup de coeur</h2>
+
+    <div class="row">
+        <div class="col-2"></div>
+        <div class="col-8">
+                <div class="text-center">
+            <img class="picture-slider" src="/assets/images/villa-1.jpeg" alt="Grapefruit slice atop a pile of other slices" height="300px" width="600px">
+        </div>
+            <h3 class="text-center">
+            <p>{{ favorite.title }} {{ favorite.adress }} <br> {{ favorite.city }} </p>
+            <p>Prix : {{ favorite.price }} $</p>
+            <p>Surface : {{ favorite.surface }} m²</p>
+            <p>{{ favorite.description }}</p>
+            </h3>
+            <div class="text-center">
+                <a href="/Property/showOne?id={{ favorite.id_property }}" class=" card-link btn btn-primary">En savoir plus</a>
+            </div>
+            <hr>
         </div>
     </div>
-    <h2>Nos 10 derniers biens</h2>
+    <h2 class="text-center">Nos 10 derniers biens</h2>
     <div class="flex-container mb-50">
         {% for newProperty in newProperties %}
-            <div><img class="picture-slider" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" height="140px" width="225px">
-            {{ newProperty.id_property }} {{ newProperty.title }} {{ newProperty.surface }} m2, {{ newProperty.room }} chambres</div>
+            
+            <div class="card" style="height=140px; width=225px;">
+            <img class="card-img-top" src="{{ newProperty.picture }}" title="{{ newProperty.title }}" alt="{{ newProperty.alt }}" alt="Card image cap">
+                <div class="card-body">
+                    <h4 class="card-title">{{ newProperty.title }} </h4>
+
+                    <p class="card-text"> 
+                    
+                        {% if newProperty.description|length > 50 %}
+                            {{ newProperty.description|slice(0,50) ~ '...' }}
+                        {% else %}
+                            {{ newProperty.description }}
+                        {% endif %}
+                    
+                    </p>
+                    <a href="/Property/showOne?id={{ newProperty.id_property }}" class=" card-link btn btn-primary">En savoir plus</a>
+                </div>
+            </div>
+     
         {% else %}
             <div>Nothing to display</div>
         {% endfor %}
     </div>
-    <h2>Voir plus de biens - lian</h2>
-    <div class="fixbot-ab">
-        <h5 class="footer text-center">Copyright © 2020 LCL Design | La bande à qui parler</h5>
-    </div>
+    </br>
+
 {% endblock %}
