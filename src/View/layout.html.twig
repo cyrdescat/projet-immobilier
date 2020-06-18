@@ -47,28 +47,29 @@
                 class="active"
             {% endif %}
             href="/contact/add">Contact</a>
+
+        <form class="flexsearch" method="post" action="/Property/searchProperties">
+            <div>
+                <label  for="price">Prix max :</label>
+                <input  type="number"  id="price"  name="price">
+            </div>
+            <div>
+                <label  for="surface">Surface min :</label>
+                <input  type="number"  id="surface"  name="surface">
+            </div>
+            <div>
+                <label  for="room">Pièces min :</label>
+                <input  type="number"  id="room"  name="room">
+            </div>
+            <div>
+                <label  for="city">Ville :</label>
+                <input  type="text"  id="city"  name="city">
+            </div>
+            <div>
+                <button  type="submit" id="submit" name="submit">Rechercher</button>
+            </div>
+        </form>
     </div>
-    <form method="post" action="/Property/searchProperties">
-        <div>
-            <label  for="price">Prix max :</label>
-            <input  type="number"  id="price"  name="price">
-        </div>
-        <div>
-            <label  for="surface">Surface min :</label>
-            <input  type="number"  id="surface"  name="surface">
-        </div>
-        <div>
-            <label  for="room">Pièces min :</label>
-            <input  type="number"  id="room"  name="room">
-        </div>
-        <div>
-            <label  for="city">Ville :</label>
-            <input  type="text"  id="city"  name="city">
-        </div>
-        <div>
-            <button  type="submit" id="submit" name="submit">Rechercher</button>
-        </div>
-    </form>
 </header>
 <body>
 

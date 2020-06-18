@@ -53,4 +53,19 @@
   .topnav a.active {
     background-color: #4CAF50;
     color: white;
-  }  
+  }
+
+  .infobar {
+    opacity: .8;
+    color: #494949;
+    font-size: 15px;
+    line-height: 30px;
+    font-weight: 700;
+    display: inline-block;
+    margin-right: 25px;
+  }
+
+  .flexsearch{
+    display: flex;
+    color: white;
+  }
