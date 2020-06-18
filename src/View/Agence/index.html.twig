@@ -10,9 +10,12 @@
         <script>
             var cities = L.layerGroup();
             L.marker([{{ agences[0].longitude }}, {{ agences[0].latitude }}]).bindPopup("<b>{{ agences[0].name }}</b><br />{{ agences[0].adress }}<br />{{ agences[0].phone }}").addTo(cities),
-            L.marker([{{ agences[1].longitude }}, {{ agences[1].latitude }}]).bindPopup("<b>{{ agences[1].name }}</b><br />{{ agences[1].adress }}<br />{{ agences[0].phone }}").addTo(cities),
-            L.marker([{{ agences[2].longitude }}, {{ agences[2].latitude }}]).bindPopup("<b>{{ agences[2].name }}</b><br />{{ agences[2].adress }}<br />{{ agences[0].phone }}").addTo(cities),
-            L.marker([{{ agences[3].longitude }}, {{ agences[3].latitude }}]).bindPopup("<b>{{ agences[3].name }}</b><br />{{ agences[3].adress }}<br />{{ agences[0].phone }}").addTo(cities);
+            L.marker([{{ agences[1].longitude }}, {{ agences[1].latitude }}]).bindPopup("<b>{{ agences[1].name }}</b><br />{{ agences[1].adress }}<br />{{ agences[1].phone }}").addTo(cities),
+            L.marker([{{ agences[2].longitude }}, {{ agences[2].latitude }}]).bindPopup("<b>{{ agences[2].name }}</b><br />{{ agences[2].adress }}<br />{{ agences[2].phone }}").addTo(cities),
+            L.marker([{{ agences[3].longitude }}, {{ agences[3].latitude }}]).bindPopup("<b>{{ agences[3].name }}</b><br />{{ agences[3].adress }}<br />{{ agences[3].phone }}").addTo(cities),
+            L.marker([{{ agences[4].longitude }}, {{ agences[4].latitude }}]).bindPopup("<b>{{ agences[4].name }}</b><br />{{ agences[4].adress }}<br />{{ agences[4].phone }}").addTo(cities),
+            L.marker([{{ agences[5].longitude }}, {{ agences[5].latitude }}]).bindPopup("<b>{{ agences[5].name }}</b><br />{{ agences[5].adress }}<br />{{ agences[5].phone }}").addTo(cities),
+            L.marker([{{ agences[6].longitude }}, {{ agences[6].latitude }}]).bindPopup("<b>{{ agences[6].name }}</b><br />{{ agences[6].adress }}<br />{{ agences[6].phone }}").addTo(cities);
             
             var mbAttr = 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
                     '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +

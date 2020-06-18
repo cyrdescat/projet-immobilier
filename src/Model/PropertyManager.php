@@ -44,14 +44,14 @@ class PropertyManager extends AbstractManager
      *
      * @return array
      */
-    public function selectNewProperty(): array
+    public function selectNewProperty($limit): array
     {
         $query = "SELECT pr.*, p.* "
                . "FROM " . $this->table . " as pr "
                . "JOIN picture p ON pr.id = p.id_property "
                . "WHERE p.front = 1 "
                . "ORDER BY pr.created DESC "
-               . "LIMIT 10 ";
+               . "LIMIT " .$limit;
         $statement = $this->pdo->query($query);
         $properties = $statement->fetchAll();
         //return $this->pdo->query('SELECT * FROM ' . $this->table . ' ORDER BY created DESC LIMIT 10')->fetchall();
@@ -60,7 +60,24 @@ class PropertyManager extends AbstractManager
     }
 
     /**
-     * Get all data from 1 property.
+     * Get last new 10 propertys into database.
+     *
+     * @return array
+     */
+    public function selectFavorite(): array
+    {
+        $query = "SELECT pr.*, p.* "
+               . "FROM " . $this->table . " as pr "
+               . "JOIN picture p ON pr.id = p.id_property "
+               . "WHERE p.front = 1 "
+               . "AND pr.id = 2 ";
+        $statement = $this->pdo->query($query);
+        $favorite = $statement->fetch();
+        
+        return $favorite;
+    }
+    
+     /* Get all data from 1 property.
      *
      * @return array
      */

@@ -17,7 +17,7 @@ use App\Model\PropertyManager;
  */
 class PropertyController extends AbstractController
 {
-    const PAGES_NUMBER = [10, 20, 50];
+    const PAGES_NUMBER = [5, 10, 20, 50];
     const PAGES_SORT = [
         'plus récentes',
         'plus anciennes',
