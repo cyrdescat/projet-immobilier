@@ -41,14 +41,14 @@ class HomeController extends AbstractController
         $favorite = $propertyManager->selectFavorite();
 
         // Last 10 new properties
-        $propertyNum = 10; 
-        $newProperties = $propertyManager->selectNewProperty($propertyNum);  
+        $propertyNum = 10;
+        $newProperties = $propertyManager->selectNewProperty($propertyNum);
         
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Home/index.html.twig', [
-            'properties' => $properties, 
-            'favorite' => $favorite, 
+            'properties' => $properties,
+            'favorite' => $favorite,
             'newProperties' => $newProperties,
             'pageURL' => $pageURL
         ]);
