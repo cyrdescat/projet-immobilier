@@ -30,7 +30,7 @@
                 <ul class="list-group list-group-flush">
                     {% for property in properties %}
                         <li class="list-group-item">
-                            <h3><a href="/Property/showOne?id={{ property.id }}">{{ property.title }}</a></h3>
+                            <h3><a href="/Property/showOne?id={{ property.id_property }}">{{ property.title }}</a></h3>
                             <p>
                                 {% if property.description|length > 50 %}
                                     {{ property.description|slice(0,50) ~ '...' }}

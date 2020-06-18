@@ -126,7 +126,11 @@ class PropertyController extends AbstractController
                 $_SESSION['price']
             );
 
-            $maxPages = ceil($totalElements / $nbElements);
+            if ($totalElements != 0) {
+                $maxPages = ceil($totalElements / $nbElements);
+            } else {
+                $maxPages = 1;
+            }
             $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
             return $this->twig->render('Property/index.html.twig', [
@@ -178,7 +182,11 @@ class PropertyController extends AbstractController
 
         $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
 
-        $maxPages = ceil($totalElements / $nbElements);
+        if ($totalElements != 0) {
+            $maxPages = ceil($totalElements / $nbElements);
+        } else {
+            $maxPages = 1;
+        }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
@@ -236,7 +244,11 @@ class PropertyController extends AbstractController
 
         $totalElements = $propertyManager->countSearchedProperties(0, 0, "", 0);
 
-        $maxPages = ceil($totalElements / $nbElements);
+        if ($totalElements != 0) {
+            $maxPages = ceil($totalElements / $nbElements);
+        } else {
+            $maxPages = 1;
+        }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
@@ -285,7 +297,11 @@ class PropertyController extends AbstractController
 
         $totalElements = $propertyManager->countUltraLuxe($page, $nbElements, $filterId);
 
-        $maxPages = ceil($totalElements / $nbElements);
+        if ($totalElements != 0) {
+            $maxPages = ceil($totalElements / $nbElements);
+        } else {
+            $maxPages = 1;
+        }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
         return $this->twig->render('Property/index.html.twig', [
@@ -379,7 +395,7 @@ class PropertyController extends AbstractController
         $pictures = $propertyManager->selectPicturesFromOne($_GET["id"]);
         $agences = $propertyManager->selectAgenceFromOne($_GET["id"]);
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
-        
+
         return $this->twig->render('/Property/showOne.html.twig', [
             'property' => $property,
             'pictures' => $pictures,

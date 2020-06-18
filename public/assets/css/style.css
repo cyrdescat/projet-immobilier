@@ -31,11 +31,33 @@
     max-width: 100%
 }
 
+.clickableHover:hover {
+    background: #00A5E3;
+}
+
+.clickableHover td {
+    padding: 0px !important;
+}
+
+.clickableRow {
+    display: block;
+    padding: 16px;
+    color: black;
+}
+
+.centerText {
+    text-align: center;
+}
+
+.clickableRow:hover {
+    text-decoration: none;
+}
+
 .topnav {
     overflow: hidden;
     background-color: #333;
   }
-  
+
   .topnav a {
     float: left;
     color: #f2f2f2;
