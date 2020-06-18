@@ -181,8 +181,6 @@ class PropertyController extends AbstractController
         $maxPages = ceil($totalElements / $nbElements);
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
 
-        var_dump($properties);
-
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
             'currentFilter' => $filter,
