@@ -73,8 +73,6 @@ class PropertyManager extends AbstractManager
     }
 
     /**
-     * Get all Pictures from 1 property.
-     *
      * @return array
      */
     public function selectPicturesFromOne(int $id): array
