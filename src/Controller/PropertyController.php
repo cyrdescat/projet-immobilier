@@ -312,9 +312,6 @@ class PropertyController extends AbstractController
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
         $title = "UltraLuxe";
 
-        echo $totalElements;
-        echo $nbElements;
-
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,
             'currentFilter' => $filter,
