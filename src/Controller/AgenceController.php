@@ -37,9 +37,8 @@ class AgenceController extends AbstractController
         return $this->twig->render('Agence/index.html.twig', [
             'agences' => $agences,
             'pageURL' => $pageURL,
-        ],);
+        ]);
     }
-
 
     /**
      * Display agence informations specified by $id
