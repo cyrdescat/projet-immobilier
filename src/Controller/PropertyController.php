@@ -302,7 +302,7 @@ class PropertyController extends AbstractController
         $propertyManager = new PropertyManager();
         $properties = $propertyManager->getUltraLuxe($page, $nbElements, $filterId);
 
-        $totalElements = $propertyManager->countUltraLuxe($page, $nbElements, $filterId);
+        $totalElements = $propertyManager->countUltraLuxe($filterId);
 
         if ($totalElements != 0) {
             $maxPages = ceil($totalElements / $nbElements);
@@ -311,6 +311,9 @@ class PropertyController extends AbstractController
         }
         $pageURL = strtolower(strtok($_SERVER['REQUEST_URI'], '?'));
         $title = "UltraLuxe";
+
+        echo $totalElements;
+        echo $nbElements;
 
         return $this->twig->render('Property/index.html.twig', [
             'properties' => $properties,

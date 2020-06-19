@@ -122,10 +122,10 @@ class PropertyManager extends AbstractManager
      * @param int $room
      * @param string $city
      * @param int $price
-     * @param bool $isNew
+     * @param int|int $isNew
      * @return string
      */
-    public function countSearchedProperties(int $surface, int $room, string $city, int $price, $isNew = 0) : string
+    public function countSearchedProperties(int $surface, int $room, string $city, int $price, int $isNew = 0) : string
     {
         if ($isNew != 0) {
             $new = "AND created >= (NOW() - INTERVAL 3 MONTH) ";
@@ -245,12 +245,10 @@ class PropertyManager extends AbstractManager
     }
 
     /**
-     * @param int $page
-     * @param int $nbElement
      * @param int $filterId
      * @return string
      */
-    public function countUltraLuxe(int $page, int $nbElement, int $filterId) : string
+    public function countUltraLuxe(int $filterId) : string
     {
         if ($filterId === 1 || $filterId === 3 || $filterId === 4) {
             $order = "ASC";
@@ -269,11 +267,7 @@ class PropertyManager extends AbstractManager
 
         $statement = $this->pdo->prepare("SELECT COUNT(*) FROM $this->table 
                                                 WHERE price >= 10000000 
-                                                ORDER BY $column $order 
-                                                LIMIT :offset, :limit");
-
-        $statement->bindValue('limit', $nbElement, \PDO::PARAM_INT);
-        $statement->bindValue('offset', ($page - 1) * $nbElement, \PDO::PARAM_INT);
+                                                ORDER BY $column $order ");
 
         $statement->execute();
         return $statement->fetchColumn();
