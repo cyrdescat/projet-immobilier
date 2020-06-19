@@ -2,8 +2,8 @@
 
 {% block content %}   
     <h1 class="text-center mb-50">Bahamas Immobilier Defiscalisation</h1>
-    <div style="margin:auto; width:725px">
-        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+    <div style="margin:auto; width:900px">
+        <div id="myCarousel" class="carousel mb-50 slide" data-ride="carousel">
             <!-- Indicators -->
 
             <ol class="carousel-indicators">
@@ -20,7 +20,7 @@
             <div class="carousel-inner">
                 {% for property in properties %}
                     <div class="item {% if loop.index == 1 %} active {% endif %}">
-                        <a href="/Property/showOne?id={{ property.id_property }}"><img src="{{ property.picture }}" title="{{ property.title_property }}" alt="{{ property.alt }}" style="width:725px;height:380px"></a>
+                        <a href="/Property/showOne?id={{ property.id_property }}"><img src="{{ property.picture }}" title="{{ property.title_property }}" alt="{{ property.alt }}" style="width:900px;height:450px"></a>
                         <div class="carousel-caption d-none d-md-block">
                             <h5>{{ property.propertyTitle }}</h5>
                         </div>
@@ -39,9 +39,8 @@
             </a>
         </div>
     </div>
-    <hr class="hr-color">
-    <h2 class="text-center">Coup de coeur</h2>
-
+    <hr class="">
+    <h2 class="text-center mb-30">Coup de coeur</h2>
     <div class="row">
         <div class="col-2"></div>
         <div class="col-8">
@@ -54,13 +53,13 @@
             <p>Surface : {{ favorite.surface }} m²</p>
             <p>{{ favorite.description }}</p>
             </h3>
-            <div class="text-center">
+            <div class="text-center mb-30">
                 <a href="/Property/showOne?id={{ favorite.id_property }}" class=" card-link btn btn-primary">En savoir plus</a>
             </div>
-            <hr>
         </div>
     </div>
-    <h2 class="text-center">Nos 10 derniers biens</h2>
+    <hr class="hr mb-30">
+    <h2 class="text-center mb-30">Nos 10 derniers biens</h2>
     <div class="flex-container mb-50">
         {% for newProperty in newProperties %}
             
@@ -85,7 +84,10 @@
         {% else %}
             <div>Nothing to display</div>
         {% endfor %}
+        
     </div>
+    <hr class="hr">
+    <h3 class="text-center plusbien"><a href="/Property/sales">Voir d'avantage de biens</a></h3>
     </br>
 
 {% endblock %}

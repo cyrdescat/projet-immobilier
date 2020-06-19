@@ -37,7 +37,7 @@
         <div class="col-8">
             <h3 class="text-center">
             <p>{{ property.adress }} - {{ property.name }} </p>
-            <p>Prix : {{ property.price }} $</p>
+            <p class="plusbien">Prix : {{ property.price|number_format(0, '.', '.') }} $</p>
             <p>Surface : {{ property.surface }} m²</p>
             <p>Nombres de pièces : {{ property.room }}</p>
             <p>{{ property.description }}</p>
